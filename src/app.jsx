@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Plus, Edit2, Trash2, Check, X } from 'lucide-react';
+import { ChevronLeft, Plus, Edit2, Trash2, Check, X, Heart, Thumbs2, Smile } from 'lucide-react';
 
 export default function App() {
-  const [view, setView] = useState('home'); // home, detail, admin
+  const [view, setView] = useState('home');
   const [selectedItem, setSelectedItem] = useState(null);
   const [adminMode, setAdminMode] = useState(false);
   const [adminPassword, setAdminPassword] = useState('');
@@ -14,8 +14,8 @@ export default function App() {
       category: 'Health', 
       title: 'Medical Insurance', 
       description: 'Coverage for you and your family',
-      details: 'Comprehensive medical insurance coverage for you and your dependents. Includes annual checkups, emergency care, and prescription medications under a Phoenix Insurance policy.',
-      color: '#1d5e3f'
+      details: 'Comprehensive medical insurance coverage for you and your dependents. Includes annual checkups, emergency care, and prescription medications.',
+      color: '#6be084'
     },
     { 
       id: 2, 
@@ -24,7 +24,7 @@ export default function App() {
       title: 'Dental Plan', 
       description: 'Annual dental checkups and procedures',
       details: 'Annual dental checkups and basic procedures covered. Includes cleanings, fillings, and root canals up to 80% coverage.',
-      color: '#2d1b4e'
+      color: '#19bbee'
     },
     { 
       id: 3, 
@@ -33,7 +33,7 @@ export default function App() {
       title: 'Time Off & Leave', 
       description: 'Time to rest & recharge',
       details: '20 days of paid vacation annually. Plus flexible work arrangements and mental health days.',
-      color: '#3d2033'
+      color: '#fee000'
     },
     { 
       id: 4, 
@@ -42,7 +42,7 @@ export default function App() {
       title: 'Maternity & Paternity', 
       description: 'Expanding your family',
       details: 'Up to 4 months paid parental leave. Flexible return-to-work options and childcare support.',
-      color: '#4a1f3f'
+      color: '#d9d9d9'
     },
     { 
       id: 5, 
@@ -51,7 +51,7 @@ export default function App() {
       title: '₪350 Monthly Wellness', 
       description: 'Monthly allowance for health & wellness',
       details: 'Monthly allowance to invest in your health and wellness. Use for gym, yoga, meditation apps, or wellness equipment.',
-      color: '#4a1f3f'
+      color: '#6be084'
     },
     { 
       id: 6, 
@@ -60,7 +60,7 @@ export default function App() {
       title: '₪1000 Monthly Food', 
       description: 'Daily food & dining coverage',
       details: 'Daily food and dining covered via Cibus. Order lunch or dinner to your office or home.',
-      color: '#4a1f3f'
+      color: '#19bbee'
     },
     { 
       id: 7, 
@@ -69,7 +69,7 @@ export default function App() {
       title: 'Global Relocation Policy', 
       description: 'Support for employees relocating',
       details: 'Support and guidelines for employees relocating globally. Includes visa assistance, accommodation support, and relocation allowance.',
-      color: '#3f2033'
+      color: '#fee000'
     },
     { 
       id: 8, 
@@ -78,7 +78,7 @@ export default function App() {
       title: 'Travel Policy', 
       description: 'Rules and reimbursements for business travel',
       details: 'Rules and reimbursements for business travel. Economy flights, hotel reimbursement up to ₪400/night.',
-      color: '#3f2033'
+      color: '#d9d9d9'
     },
     { 
       id: 9, 
@@ -87,11 +87,11 @@ export default function App() {
       title: 'Expense Reporting Policy', 
       description: 'How to report work-related expenses',
       details: 'How to report and get reimbursed for work-related expenses. Submit within 30 days with receipts.',
-      color: '#5c3a1f'
+      color: '#6be084'
     },
   ]);
 
-  const [newItem, setNewItem] = useState({ type: 'benefit', category: '', title: '', description: '', details: '', color: '#3f2033' });
+  const [newItem, setNewItem] = useState({ type: 'benefit', category: '', title: '', description: '', details: '', color: '#19bbee' });
   const [editingId, setEditingId] = useState(null);
   const [editData, setEditData] = useState({});
 
@@ -103,7 +103,7 @@ export default function App() {
   const handleAddItem = () => {
     if (newItem.category && newItem.title && newItem.description) {
       setItems([...items, { id: Date.now(), ...newItem }]);
-      setNewItem({ type: 'benefit', category: '', title: '', description: '', details: '', color: '#3f2033' });
+      setNewItem({ type: 'benefit', category: '', title: '', description: '', details: '', color: '#19bbee' });
     }
   };
 
@@ -137,147 +137,185 @@ export default function App() {
     const policies = items.filter(i => i.type === 'policy');
 
     return (
-      <div style={{ minHeight: '100vh', background: '#0f1419', color: '#fff', padding: '2rem 1rem' }}>
-        {/* Header */}
-        <div style={{ maxWidth: '1200px', margin: '0 auto', marginBottom: '3rem' }}>
-          <div style={{ marginBottom: '2rem' }}>
-            <h1 style={{ fontSize: '32px', fontWeight: 700, margin: 0, color: '#FEE000' }}>
-              personetics
-            </h1>
-            <p style={{ fontSize: '14px', color: '#19bbee', margin: '0.5rem 0 0' }}>
-              IL Benefits & Policies Hub
-            </p>
+      <div style={{ minHeight: '100vh', background: '#fafaf8', color: '#000' }}>
+        {/* Banner Section */}
+        <div style={{
+          background: 'linear-gradient(135deg, #fee000 0%, #fee000 100%)',
+          padding: '3rem 2rem',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          {/* Icon Pattern Background */}
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            opacity: 0.15,
+            fontSize: '3rem',
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignContent: 'center',
+            overflow: 'hidden'
+          }}>
+            {Array.from({ length: 20 }).map((_, i) => (
+              <div key={i} style={{ width: '20%', textAlign: 'center', padding: '10px' }}>
+                {i % 3 === 0 ? '❤️' : i % 3 === 1 ? '👍' : '😊'}
+              </div>
+            ))}
           </div>
 
-          <div>
-            <h2 style={{ fontSize: '28px', fontWeight: 700, margin: '0 0 0.5rem', color: '#fff' }}>
+          {/* Content */}
+          <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+            <h1 style={{ fontSize: '32px', fontWeight: 700, margin: 0, color: '#000' }}>
+              personetics
+            </h1>
+            <p style={{ fontSize: '14px', color: '#333', margin: '0.5rem 0 2rem' }}>
+              IL Benefits & Policies Hub
+            </p>
+
+            <h2 style={{ fontSize: '28px', fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
               Welcome to your Benefits.
             </h2>
-            <p style={{ fontSize: '16px', color: '#bbb', margin: 0 }}>
+            <p style={{ fontSize: '16px', color: '#333', margin: 0 }}>
               You have {items.length} active benefits and policies available.
             </p>
           </div>
         </div>
 
-        {/* Benefits Section */}
-        <div style={{ maxWidth: '1200px', margin: '0 auto', marginBottom: '4rem' }}>
-          <h3 style={{ fontSize: '20px', fontWeight: 600, margin: '0 0 1.5rem', color: '#fff' }}>
-            Benefits
-          </h3>
-          <p style={{ fontSize: '14px', color: '#999', margin: '0 0 1.5rem' }}>
-            Your personal wellbeing & rewards
-          </p>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
-            {benefits.map(item => (
-              <div
-                key={item.id}
-                onClick={() => handleViewDetail(item)}
-                style={{
-                  background: `linear-gradient(135deg, ${item.color} 0%, ${item.color}dd 100%)`,
-                  borderRadius: '12px',
-                  padding: '24px',
-                  cursor: 'pointer',
-                  border: '1px solid rgba(254, 224, 0, 0.3)',
-                  transition: 'all 0.3s ease',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  minHeight: '200px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-              >
-                <div>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#FEE000', letterSpacing: '1px' }}>
-                    {item.category.toUpperCase()}
-                  </span>
-                  <div style={{ width: '40px', height: '3px', background: '#FEE000', margin: '8px 0' }} />
-                  <h4 style={{ fontSize: '18px', fontWeight: 700, margin: '12px 0 8px', color: '#fff' }}>
-                    {item.title}
-                  </h4>
-                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', margin: 0 }}>
-                    {item.description}
-                  </p>
+        {/* Main Content */}
+        <div style={{ padding: '3rem 2rem' }}>
+          {/* Benefits Section */}
+          <div style={{ maxWidth: '1200px', margin: '0 auto', marginBottom: '4rem' }}>
+            <h3 style={{ fontSize: '20px', fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
+              Benefits
+            </h3>
+            <p style={{ fontSize: '14px', color: '#666', margin: '0 0 2rem' }}>
+              Your personal wellbeing & rewards
+            </p>
+            
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px' }}>
+              {benefits.map(item => (
+                <div
+                  key={item.id}
+                  onClick={() => handleViewDetail(item)}
+                  style={{
+                    background: item.color,
+                    borderRadius: '16px',
+                    padding: '32px 24px',
+                    cursor: 'pointer',
+                    border: '2px solid transparent',
+                    transition: 'all 0.3s ease',
+                    minHeight: '240px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)';
+                  }}
+                >
+                  <div>
+                    <span style={{ fontSize: '11px', fontWeight: 700, color: '#000', letterSpacing: '1px', opacity: 0.7 }}>
+                      {item.category.toUpperCase()}
+                    </span>
+                    <div style={{ width: '50px', height: '3px', background: '#000', margin: '12px 0', opacity: 0.3 }} />
+                    <h4 style={{ fontSize: '20px', fontWeight: 700, margin: '16px 0 12px', color: '#000' }}>
+                      {item.title}
+                    </h4>
+                    <p style={{ fontSize: '15px', color: '#000', margin: 0, opacity: 0.8, lineHeight: '1.5' }}>
+                      {item.description}
+                    </p>
+                  </div>
+                  <button onClick={() => handleViewDetail(item)} style={{ fontSize: '14px', color: '#000', background: 'none', border: 'none', textDecoration: 'none', fontWeight: 700, marginTop: '16px', cursor: 'pointer', padding: 0, textAlign: 'left', opacity: 0.7 }}>
+                    View details →
+                  </button>
                 </div>
-                <button onClick={() => handleViewDetail(item)} style={{ fontSize: '13px', color: '#FEE000', background: 'none', border: 'none', textDecoration: 'none', fontWeight: 600, marginTop: '12px', cursor: 'pointer', padding: 0, textAlign: 'left' }}>
-                  View details →
-                </button>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Policies Section */}
-        <div style={{ maxWidth: '1200px', margin: '0 auto', marginBottom: '3rem' }}>
-          <h3 style={{ fontSize: '20px', fontWeight: 600, margin: '0 0 1.5rem', color: '#fff' }}>
-            Policies
-          </h3>
-          <p style={{ fontSize: '14px', color: '#999', margin: '0 0 1.5rem' }}>
-            Guidelines, handbooks & company policies
-          </p>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
-            {policies.map(item => (
-              <div
-                key={item.id}
-                onClick={() => handleViewDetail(item)}
-                style={{
-                  background: `linear-gradient(135deg, ${item.color} 0%, ${item.color}dd 100%)`,
-                  borderRadius: '12px',
-                  padding: '24px',
-                  cursor: 'pointer',
-                  border: '1px solid rgba(254, 224, 0, 0.3)',
-                  transition: 'all 0.3s ease',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  minHeight: '200px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-              >
-                <div>
-                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#FEE000', letterSpacing: '1px' }}>
-                    {item.category.toUpperCase()}
-                  </span>
-                  <div style={{ width: '40px', height: '3px', background: '#FEE000', margin: '8px 0' }} />
-                  <h4 style={{ fontSize: '18px', fontWeight: 700, margin: '12px 0 8px', color: '#fff' }}>
-                    {item.title}
-                  </h4>
-                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', margin: 0 }}>
-                    {item.description}
-                  </p>
+          {/* Policies Section */}
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            <h3 style={{ fontSize: '20px', fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
+              Policies
+            </h3>
+            <p style={{ fontSize: '14px', color: '#666', margin: '0 0 2rem' }}>
+              Guidelines, handbooks & company policies
+            </p>
+            
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px', marginBottom: '3rem' }}>
+              {policies.map(item => (
+                <div
+                  key={item.id}
+                  onClick={() => handleViewDetail(item)}
+                  style={{
+                    background: item.color,
+                    borderRadius: '16px',
+                    padding: '32px 24px',
+                    cursor: 'pointer',
+                    border: '2px solid transparent',
+                    transition: 'all 0.3s ease',
+                    minHeight: '240px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)';
+                  }}
+                >
+                  <div>
+                    <span style={{ fontSize: '11px', fontWeight: 700, color: '#000', letterSpacing: '1px', opacity: 0.7 }}>
+                      {item.category.toUpperCase()}
+                    </span>
+                    <div style={{ width: '50px', height: '3px', background: '#000', margin: '12px 0', opacity: 0.3 }} />
+                    <h4 style={{ fontSize: '20px', fontWeight: 700, margin: '16px 0 12px', color: '#000' }}>
+                      {item.title}
+                    </h4>
+                    <p style={{ fontSize: '15px', color: '#000', margin: 0, opacity: 0.8, lineHeight: '1.5' }}>
+                      {item.description}
+                    </p>
+                  </div>
+                  <button onClick={() => handleViewDetail(item)} style={{ fontSize: '14px', color: '#000', background: 'none', border: 'none', textDecoration: 'none', fontWeight: 700, marginTop: '16px', cursor: 'pointer', padding: 0, textAlign: 'left', opacity: 0.7 }}>
+                    View details →
+                  </button>
                 </div>
-                <button onClick={() => handleViewDetail(item)} style={{ fontSize: '13px', color: '#FEE000', background: 'none', border: 'none', textDecoration: 'none', fontWeight: 600, marginTop: '12px', cursor: 'pointer', padding: 0, textAlign: 'left' }}>
-                  View details →
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
+              ))}
+            </div>
 
-        {/* Admin Button */}
-        <div style={{ maxWidth: '1200px', margin: '0 auto', marginTop: '3rem' }}>
-          <button
-            onClick={() => setView('admin-login')}
-            style={{
-              padding: '10px 16px',
-              fontSize: '13px',
-              background: 'transparent',
-              border: '1px solid #FEE000',
-              color: '#FEE000',
-              borderRadius: '6px',
-              cursor: 'pointer',
-              fontWeight: 600
-            }}
-          >
-            Admin Access
-          </button>
+            {/* Admin Button */}
+            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+              <button
+                onClick={() => setView('admin-login')}
+                style={{
+                  padding: '12px 20px',
+                  fontSize: '14px',
+                  background: '#000',
+                  border: 'none',
+                  color: '#fee000',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontWeight: 700
+                }}
+              >
+                Admin Access
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -286,9 +324,8 @@ export default function App() {
   // ============ DETAIL VIEW ============
   if (view === 'detail' && selectedItem) {
     return (
-      <div style={{ minHeight: '100vh', background: '#0f1419', color: '#fff', padding: '2rem 1rem' }}>
+      <div style={{ minHeight: '100vh', background: '#fafaf8', color: '#000', padding: '2rem 1rem' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-          {/* Back Button */}
           <button
             onClick={() => setView('home')}
             style={{
@@ -297,34 +334,33 @@ export default function App() {
               gap: '8px',
               background: 'transparent',
               border: 'none',
-              color: '#FEE000',
+              color: '#000',
               cursor: 'pointer',
-              fontSize: '14px',
+              fontSize: '15px',
               fontWeight: 600,
               marginBottom: '2rem'
             }}
           >
-            <ChevronLeft size={18} />
+            <ChevronLeft size={20} />
             Back
           </button>
 
-          {/* Detail Card */}
           <div style={{
-            background: `linear-gradient(135deg, ${selectedItem.color} 0%, ${selectedItem.color}dd 100%)`,
-            borderRadius: '12px',
-            padding: '40px',
-            border: '1px solid rgba(254, 224, 0, 0.3)'
+            background: selectedItem.color,
+            borderRadius: '16px',
+            padding: '48px 40px',
+            boxShadow: '0 8px 24px rgba(0,0,0,0.1)'
           }}>
-            <span style={{ fontSize: '12px', fontWeight: 700, color: '#FEE000', letterSpacing: '1px' }}>
+            <span style={{ fontSize: '12px', fontWeight: 700, color: '#000', letterSpacing: '1px', opacity: 0.7 }}>
               {selectedItem.category.toUpperCase()}
             </span>
-            <div style={{ width: '60px', height: '4px', background: '#FEE000', margin: '12px 0 24px' }} />
+            <div style={{ width: '60px', height: '4px', background: '#000', margin: '16px 0 32px', opacity: 0.3 }} />
             
-            <h1 style={{ fontSize: '36px', fontWeight: 700, margin: '0 0 16px', color: '#fff' }}>
+            <h1 style={{ fontSize: '40px', fontWeight: 700, margin: '0 0 24px', color: '#000' }}>
               {selectedItem.title}
             </h1>
             
-            <p style={{ fontSize: '18px', color: 'rgba(255,255,255,0.9)', margin: 0, lineHeight: '1.6' }}>
+            <p style={{ fontSize: '18px', color: '#000', margin: 0, lineHeight: '1.8', opacity: 0.9 }}>
               {selectedItem.details}
             </p>
           </div>
@@ -336,9 +372,9 @@ export default function App() {
   // ============ ADMIN LOGIN ============
   if (view === 'admin-login') {
     return (
-      <div style={{ minHeight: '100vh', background: '#0f1419', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
-        <div style={{ background: '#1a1f26', padding: '2rem', borderRadius: '12px', border: '1px solid #FEE000', maxWidth: '400px', width: '100%' }}>
-          <h2 style={{ fontSize: '24px', fontWeight: 700, margin: '0 0 1.5rem', color: '#FEE000' }}>
+      <div style={{ minHeight: '100vh', background: '#fafaf8', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+        <div style={{ background: '#fff', padding: '2rem', borderRadius: '16px', border: '2px solid #fee000', maxWidth: '400px', width: '100%', boxShadow: '0 8px 24px rgba(0,0,0,0.1)' }}>
+          <h2 style={{ fontSize: '24px', fontWeight: 700, margin: '0 0 1.5rem', color: '#000' }}>
             Admin Access
           </h2>
           <input
@@ -349,14 +385,14 @@ export default function App() {
             onKeyPress={(e) => e.key === 'Enter' && handleAdminAccess()}
             style={{
               width: '100%',
-              padding: '10px 12px',
+              padding: '12px 14px',
               fontSize: '14px',
-              border: '1px solid #FEE000',
-              borderRadius: '6px',
+              border: '2px solid #fee000',
+              borderRadius: '8px',
               marginBottom: '1rem',
               boxSizing: 'border-box',
-              background: '#0f1419',
-              color: '#fff'
+              background: '#fafaf8',
+              color: '#000'
             }}
             autoFocus
           />
@@ -365,13 +401,13 @@ export default function App() {
               onClick={handleAdminAccess}
               style={{
                 flex: 1,
-                padding: '10px',
-                background: '#FEE000',
-                color: '#1C0962',
+                padding: '12px',
+                background: '#fee000',
+                color: '#000',
                 border: 'none',
-                borderRadius: '6px',
+                borderRadius: '8px',
                 cursor: 'pointer',
-                fontWeight: 600,
+                fontWeight: 700,
                 fontSize: '14px'
               }}
             >
@@ -381,13 +417,13 @@ export default function App() {
               onClick={() => setView('home')}
               style={{
                 flex: 1,
-                padding: '10px',
-                background: 'transparent',
-                color: '#FEE000',
-                border: '1px solid #FEE000',
-                borderRadius: '6px',
+                padding: '12px',
+                background: '#fff',
+                color: '#000',
+                border: '2px solid #fee000',
+                borderRadius: '8px',
                 cursor: 'pointer',
-                fontWeight: 600,
+                fontWeight: 700,
                 fontSize: '14px'
               }}
             >
@@ -402,22 +438,22 @@ export default function App() {
   // ============ ADMIN VIEW ============
   if (view === 'admin' && adminMode) {
     return (
-      <div style={{ minHeight: '100vh', background: '#0f1419', color: '#fff', padding: '2rem 1rem' }}>
+      <div style={{ minHeight: '100vh', background: '#fafaf8', color: '#000', padding: '2rem 1rem' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-            <h1 style={{ fontSize: '32px', fontWeight: 700, margin: 0, color: '#FEE000' }}>
+            <h1 style={{ fontSize: '32px', fontWeight: 700, margin: 0, color: '#000' }}>
               Admin Dashboard
             </h1>
             <button
               onClick={() => { setAdminMode(false); setView('home'); }}
               style={{
-                padding: '8px 16px',
-                background: 'transparent',
-                border: '1px solid #FEE000',
-                color: '#FEE000',
-                borderRadius: '6px',
+                padding: '10px 18px',
+                background: '#fff',
+                border: '2px solid #fee000',
+                color: '#000',
+                borderRadius: '8px',
                 cursor: 'pointer',
-                fontWeight: 600
+                fontWeight: 700
               }}
             >
               Logout
@@ -425,8 +461,8 @@ export default function App() {
           </div>
 
           {/* Add Item */}
-          <div style={{ background: '#1a1f26', padding: '20px', borderRadius: '12px', border: '1px solid #FEE000', marginBottom: '2rem' }}>
-            <h3 style={{ fontSize: '16px', fontWeight: 600, margin: '0 0 1rem', color: '#FEE000' }}>
+          <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', border: '2px solid #fee000', marginBottom: '2rem', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}>
+            <h3 style={{ fontSize: '16px', fontWeight: 700, margin: '0 0 1.5rem', color: '#000' }}>
               <Plus size={16} style={{ display: 'inline', marginRight: '8px', verticalAlign: '-2px' }} />
               Add New Item
             </h3>
@@ -435,11 +471,11 @@ export default function App() {
                 value={newItem.type}
                 onChange={(e) => setNewItem({ ...newItem, type: e.target.value })}
                 style={{
-                  padding: '8px',
-                  border: '1px solid #FEE000',
-                  borderRadius: '6px',
-                  background: '#0f1419',
-                  color: '#fff',
+                  padding: '10px',
+                  border: '2px solid #fee000',
+                  borderRadius: '8px',
+                  background: '#fafaf8',
+                  color: '#000',
                   fontSize: '14px'
                 }}
               >
@@ -452,11 +488,11 @@ export default function App() {
                 value={newItem.category}
                 onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
                 style={{
-                  padding: '8px',
-                  border: '1px solid #FEE000',
-                  borderRadius: '6px',
-                  background: '#0f1419',
-                  color: '#fff',
+                  padding: '10px',
+                  border: '2px solid #fee000',
+                  borderRadius: '8px',
+                  background: '#fafaf8',
+                  color: '#000',
                   fontSize: '14px',
                   boxSizing: 'border-box'
                 }}
@@ -467,11 +503,11 @@ export default function App() {
                 value={newItem.title}
                 onChange={(e) => setNewItem({ ...newItem, title: e.target.value })}
                 style={{
-                  padding: '8px',
-                  border: '1px solid #FEE000',
-                  borderRadius: '6px',
-                  background: '#0f1419',
-                  color: '#fff',
+                  padding: '10px',
+                  border: '2px solid #fee000',
+                  borderRadius: '8px',
+                  background: '#fafaf8',
+                  color: '#000',
                   fontSize: '14px',
                   boxSizing: 'border-box'
                 }}
@@ -482,11 +518,11 @@ export default function App() {
                 value={newItem.description}
                 onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
                 style={{
-                  padding: '8px',
-                  border: '1px solid #FEE000',
-                  borderRadius: '6px',
-                  background: '#0f1419',
-                  color: '#fff',
+                  padding: '10px',
+                  border: '2px solid #fee000',
+                  borderRadius: '8px',
+                  background: '#fafaf8',
+                  color: '#000',
                   fontSize: '14px',
                   boxSizing: 'border-box'
                 }}
@@ -496,27 +532,44 @@ export default function App() {
                 value={newItem.details}
                 onChange={(e) => setNewItem({ ...newItem, details: e.target.value })}
                 style={{
-                  padding: '8px',
-                  border: '1px solid #FEE000',
-                  borderRadius: '6px',
-                  background: '#0f1419',
-                  color: '#fff',
+                  padding: '10px',
+                  border: '2px solid #fee000',
+                  borderRadius: '8px',
+                  background: '#fafaf8',
+                  color: '#000',
                   fontSize: '14px',
                   minHeight: '80px',
                   boxSizing: 'border-box',
                   fontFamily: 'monospace'
                 }}
               />
+              <select
+                value={newItem.color}
+                onChange={(e) => setNewItem({ ...newItem, color: e.target.value })}
+                style={{
+                  padding: '10px',
+                  border: '2px solid #fee000',
+                  borderRadius: '8px',
+                  background: '#fafaf8',
+                  color: '#000',
+                  fontSize: '14px'
+                }}
+              >
+                <option value="#19bbee">Cyan</option>
+                <option value="#6be084">Green</option>
+                <option value="#fee000">Yellow</option>
+                <option value="#d9d9d9">Gray</option>
+              </select>
               <button
                 onClick={handleAddItem}
                 style={{
-                  padding: '8px',
-                  background: '#FEE000',
-                  color: '#1C0962',
+                  padding: '10px',
+                  background: '#fee000',
+                  color: '#000',
                   border: 'none',
-                  borderRadius: '6px',
+                  borderRadius: '8px',
                   cursor: 'pointer',
-                  fontWeight: 600
+                  fontWeight: 700
                 }}
               >
                 Add Item
@@ -525,12 +578,12 @@ export default function App() {
           </div>
 
           {/* Items List */}
-          <h3 style={{ fontSize: '18px', fontWeight: 600, margin: '0 0 1rem', color: '#FEE000' }}>
+          <h3 style={{ fontSize: '18px', fontWeight: 700, margin: '0 0 1.5rem', color: '#000' }}>
             Manage Items ({items.length})
           </h3>
           <div style={{ display: 'grid', gap: '12px' }}>
             {items.map(item => (
-              <div key={item.id} style={{ background: '#1a1f26', padding: '16px', borderRadius: '8px', border: '1px solid #FEE000' }}>
+              <div key={item.id} style={{ background: '#fff', padding: '16px', borderRadius: '8px', border: '2px solid #fee000' }}>
                 {editingId === item.id ? (
                   <div style={{ display: 'grid', gap: '8px' }}>
                     <input
@@ -539,10 +592,10 @@ export default function App() {
                       onChange={(e) => setEditData({ ...editData, title: e.target.value })}
                       style={{
                         padding: '8px',
-                        border: '1px solid #FEE000',
+                        border: '2px solid #fee000',
                         borderRadius: '6px',
-                        background: '#0f1419',
-                        color: '#fff',
+                        background: '#fafaf8',
+                        color: '#000',
                         fontSize: '14px',
                         boxSizing: 'border-box'
                       }}
@@ -552,10 +605,10 @@ export default function App() {
                       onChange={(e) => setEditData({ ...editData, details: e.target.value })}
                       style={{
                         padding: '8px',
-                        border: '1px solid #FEE000',
+                        border: '2px solid #fee000',
                         borderRadius: '6px',
-                        background: '#0f1419',
-                        color: '#fff',
+                        background: '#fafaf8',
+                        color: '#000',
                         fontSize: '14px',
                         minHeight: '60px',
                         boxSizing: 'border-box',
@@ -588,9 +641,9 @@ export default function App() {
                         style={{
                           flex: 1,
                           padding: '6px',
-                          background: 'transparent',
-                          color: '#FEE000',
-                          border: '1px solid #FEE000',
+                          background: '#f5f5f5',
+                          color: '#000',
+                          border: '2px solid #fee000',
                           borderRadius: '6px',
                           cursor: 'pointer',
                           fontWeight: 600,
@@ -608,13 +661,13 @@ export default function App() {
                 ) : (
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
                     <div>
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#19bbee' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#000', opacity: 0.6 }}>
                         {item.type.toUpperCase()} • {item.category}
                       </span>
-                      <h4 style={{ fontSize: '15px', fontWeight: 600, margin: '4px 0', color: '#FEE000' }}>
+                      <h4 style={{ fontSize: '15px', fontWeight: 700, margin: '4px 0', color: '#000' }}>
                         {item.title}
                       </h4>
-                      <p style={{ fontSize: '13px', color: '#999', margin: 0 }}>
+                      <p style={{ fontSize: '13px', color: '#666', margin: 0 }}>
                         {item.description}
                       </p>
                     </div>
@@ -623,8 +676,8 @@ export default function App() {
                         onClick={() => handleEditItem(item)}
                         style={{
                           padding: '6px',
-                          background: '#FEE000',
-                          color: '#1C0962',
+                          background: '#fee000',
+                          color: '#000',
                           border: 'none',
                           borderRadius: '6px',
                           cursor: 'pointer',
@@ -638,7 +691,7 @@ export default function App() {
                         onClick={() => handleDeleteItem(item.id)}
                         style={{
                           padding: '6px',
-                          background: '#f45e04',
+                          background: '#ff6b6b',
                           color: '#fff',
                           border: 'none',
                           borderRadius: '6px',
