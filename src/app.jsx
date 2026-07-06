@@ -1,28 +1,113 @@
 import React, { useState } from 'react';
-import { Search, Plus, Trash2, Edit2, Check, X } from 'lucide-react';
+import { ChevronLeft, Plus, Edit2, Trash2, Check, X } from 'lucide-react';
 
 export default function App() {
-  const [mode, setMode] = useState('employee');
+  const [view, setView] = useState('home'); // home, detail, admin
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [adminMode, setAdminMode] = useState(false);
+  const [adminPassword, setAdminPassword] = useState('');
+  
   const [items, setItems] = useState([
-    { id: 1, category: 'Health', title: 'Medical Insurance', content: 'Comprehensive medical coverage for you and your family.' },
-    { id: 2, category: 'Health', title: 'Dental Plan', content: 'Annual dental checkups and basic procedures covered.' },
-    { id: 3, category: 'Time Off', title: 'Vacation Policy', content: '20 days of paid vacation annually.' },
-    { id: 4, category: 'Retirement', title: '401(k) Matching', content: 'We match 100% of contributions up to 6%.' }
+    { 
+      id: 1, 
+      type: 'benefit',
+      category: 'Health', 
+      title: 'Medical Insurance', 
+      description: 'Coverage for you and your family',
+      details: 'Comprehensive medical insurance coverage for you and your dependents. Includes annual checkups, emergency care, and prescription medications under a Phoenix Insurance policy.',
+      color: '#1d5e3f'
+    },
+    { 
+      id: 2, 
+      type: 'benefit',
+      category: 'Health', 
+      title: 'Dental Plan', 
+      description: 'Annual dental checkups and procedures',
+      details: 'Annual dental checkups and basic procedures covered. Includes cleanings, fillings, and root canals up to 80% coverage.',
+      color: '#2d1b4e'
+    },
+    { 
+      id: 3, 
+      type: 'benefit',
+      category: 'Time Off', 
+      title: 'Time Off & Leave', 
+      description: 'Time to rest & recharge',
+      details: '20 days of paid vacation annually. Plus flexible work arrangements and mental health days.',
+      color: '#3d2033'
+    },
+    { 
+      id: 4, 
+      type: 'benefit',
+      category: 'Perks', 
+      title: 'Maternity & Paternity', 
+      description: 'Expanding your family',
+      details: 'Up to 4 months paid parental leave. Flexible return-to-work options and childcare support.',
+      color: '#4a1f3f'
+    },
+    { 
+      id: 5, 
+      type: 'benefit',
+      category: 'Perks', 
+      title: '₪350 Monthly Wellness', 
+      description: 'Monthly allowance for health & wellness',
+      details: 'Monthly allowance to invest in your health and wellness. Use for gym, yoga, meditation apps, or wellness equipment.',
+      color: '#4a1f3f'
+    },
+    { 
+      id: 6, 
+      type: 'benefit',
+      category: 'Perks', 
+      title: '₪1000 Monthly Food', 
+      description: 'Daily food & dining coverage',
+      details: 'Daily food and dining covered via Cibus. Order lunch or dinner to your office or home.',
+      color: '#4a1f3f'
+    },
+    { 
+      id: 7, 
+      type: 'policy',
+      category: 'Global',
+      title: 'Global Relocation Policy', 
+      description: 'Support for employees relocating',
+      details: 'Support and guidelines for employees relocating globally. Includes visa assistance, accommodation support, and relocation allowance.',
+      color: '#3f2033'
+    },
+    { 
+      id: 8, 
+      type: 'policy',
+      category: 'Travel',
+      title: 'Travel Policy', 
+      description: 'Rules and reimbursements for business travel',
+      details: 'Rules and reimbursements for business travel. Economy flights, hotel reimbursement up to ₪400/night.',
+      color: '#3f2033'
+    },
+    { 
+      id: 9, 
+      type: 'policy',
+      category: 'Expenses',
+      title: 'Expense Reporting Policy', 
+      description: 'How to report work-related expenses',
+      details: 'How to report and get reimbursed for work-related expenses. Submit within 30 days with receipts.',
+      color: '#5c3a1f'
+    },
   ]);
-  const [searchTerm, setSearchTerm] = useState('');
+
+  const [newItem, setNewItem] = useState({ type: 'benefit', category: '', title: '', description: '', details: '', color: '#3f2033' });
   const [editingId, setEditingId] = useState(null);
   const [editData, setEditData] = useState({});
-  const [newItem, setNewItem] = useState({ category: '', title: '', content: '' });
-  const [adminPassword, setAdminPassword] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
-  
-  const filteredItems = items.filter(item =>
-    item.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.content.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
-  const handleEdit = (item) => {
+  const handleViewDetail = (item) => {
+    setSelectedItem(item);
+    setView('detail');
+  };
+
+  const handleAddItem = () => {
+    if (newItem.category && newItem.title && newItem.description) {
+      setItems([...items, { id: Date.now(), ...newItem }]);
+      setNewItem({ type: 'benefit', category: '', title: '', description: '', details: '', color: '#3f2033' });
+    }
+  };
+
+  const handleEditItem = (item) => {
     setEditingId(item.id);
     setEditData({ ...item });
   };
@@ -32,131 +117,228 @@ export default function App() {
     setEditingId(null);
   };
 
-  const handleDelete = (id) => {
+  const handleDeleteItem = (id) => {
     setItems(items.filter(i => i.id !== id));
-  };
-
-  const handleAddItem = () => {
-    if (newItem.category && newItem.title && newItem.content) {
-      setItems([...items, { id: Date.now(), ...newItem }]);
-      setNewItem({ category: '', title: '', content: '' });
-    }
   };
 
   const handleAdminAccess = () => {
     if (adminPassword === 'admin123') {
-      setIsAuthenticated(true);
-      setShowPasswordPrompt(false);
+      setAdminMode(true);
+      setAdminPassword('');
+      setView('admin');
     } else {
       alert('Incorrect password');
     }
   };
 
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    setAdminPassword('');
-  };
+  // ============ HOME VIEW ============
+  if (view === 'home' && !adminMode) {
+    const benefits = items.filter(i => i.type === 'benefit');
+    const policies = items.filter(i => i.type === 'policy');
 
-  if (mode === 'employee' && !showPasswordPrompt) {
     return (
-      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem 1rem' }}>
-        <div style={{ marginBottom: '2rem' }}>
-          <h1 style={{ fontSize: '28px', fontWeight: 600, margin: '0 0 0.5rem', color: '#1C0962' }}>
-            IL Benefits & Policies Hub
-          </h1>
-          <p style={{ fontSize: '16px', color: '#000000', margin: 0 }}>
-            Find all information about your benefits and company policies
+      <div style={{ minHeight: '100vh', background: '#0f1419', color: '#fff', padding: '2rem 1rem' }}>
+        {/* Header */}
+        <div style={{ maxWidth: '1200px', margin: '0 auto', marginBottom: '3rem' }}>
+          <div style={{ marginBottom: '2rem' }}>
+            <h1 style={{ fontSize: '32px', fontWeight: 700, margin: 0, color: '#FEE000' }}>
+              personetics
+            </h1>
+            <p style={{ fontSize: '14px', color: '#19bbee', margin: '0.5rem 0 0' }}>
+              IL Benefits & Policies Hub
+            </p>
+          </div>
+
+          <div>
+            <h2 style={{ fontSize: '28px', fontWeight: 700, margin: '0 0 0.5rem', color: '#fff' }}>
+              Welcome to your Benefits.
+            </h2>
+            <p style={{ fontSize: '16px', color: '#bbb', margin: 0 }}>
+              You have {items.length} active benefits and policies available.
+            </p>
+          </div>
+        </div>
+
+        {/* Benefits Section */}
+        <div style={{ maxWidth: '1200px', margin: '0 auto', marginBottom: '4rem' }}>
+          <h3 style={{ fontSize: '20px', fontWeight: 600, margin: '0 0 1.5rem', color: '#fff' }}>
+            Benefits
+          </h3>
+          <p style={{ fontSize: '14px', color: '#999', margin: '0 0 1.5rem' }}>
+            Your personal wellbeing & rewards
           </p>
-        </div>
-
-        <div style={{ marginBottom: '2rem', position: 'relative' }}>
-          <Search style={{ position: 'absolute', left: '12px', top: '12px', width: '18px', height: '18px', color: '#999' }} />
-          <input
-            type="text"
-            placeholder="Search benefits, policies, time off..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            style={{
-              width: '100%',
-              paddingLeft: '40px',
-              padding: '12px 12px 12px 40px',
-              fontSize: '15px',
-              border: '2px solid #FEE000',
-              borderRadius: '8px',
-              backgroundColor: '#fff',
-              boxSizing: 'border-box',
-              fontFamily: 'system-ui, -apple-system, sans-serif'
-            }}
-          />
-        </div>
-
-        <div style={{ display: 'grid', gap: '12px', marginBottom: '2rem' }}>
-          {filteredItems.length > 0 ? (
-            filteredItems.map(item => (
-              <div key={item.id} style={{
-                background: '#fff',
-                border: '2px solid #FEE000',
-                borderRadius: '8px',
-                padding: '16px',
-              }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '8px' }}>
-                  <h3 style={{ fontSize: '16px', fontWeight: 600, margin: 0, color: '#1C0962' }}>
-                    {item.title}
-                  </h3>
-                  <span style={{
-                    fontSize: '12px',
-                    background: '#19bbee',
-                    color: '#fff',
-                    padding: '4px 10px',
-                    borderRadius: '6px',
-                    whiteSpace: 'nowrap'
-                  }}>
-                    {item.category}
+          
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
+            {benefits.map(item => (
+              <div
+                key={item.id}
+                onClick={() => handleViewDetail(item)}
+                style={{
+                  background: `linear-gradient(135deg, ${item.color} 0%, ${item.color}dd 100%)`,
+                  borderRadius: '12px',
+                  padding: '24px',
+                  cursor: 'pointer',
+                  border: '1px solid rgba(254, 224, 0, 0.3)',
+                  transition: 'all 0.3s ease',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  minHeight: '200px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+              >
+                <div>
+                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#FEE000', letterSpacing: '1px' }}>
+                    {item.category.toUpperCase()}
                   </span>
+                  <div style={{ width: '40px', height: '3px', background: '#FEE000', margin: '8px 0' }} />
+                  <h4 style={{ fontSize: '18px', fontWeight: 700, margin: '12px 0 8px', color: '#fff' }}>
+                    {item.title}
+                  </h4>
+                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', margin: 0 }}>
+                    {item.description}
+                  </p>
                 </div>
-                <p style={{ fontSize: '15px', color: '#000000', margin: 0, lineHeight: 1.6 }}>
-                  {item.content}
-                </p>
+                <a href="#" onClick={(e) => e.preventDefault()} style={{ fontSize: '13px', color: '#FEE000', textDecoration: 'none', fontWeight: 600, marginTop: '12px' }}>
+                  View details →
+                </a>
               </div>
-            ))
-          ) : (
-            <div style={{ textAlign: 'center', padding: '2rem 1rem', color: '#999' }}>
-              <p style={{ fontSize: '15px', margin: 0 }}>No results found. Try a different search.</p>
-            </div>
-          )}
+            ))}
+          </div>
         </div>
 
-        <button
-          onClick={() => setShowPasswordPrompt(true)}
-          style={{
-            padding: '10px 16px',
-            fontSize: '14px',
-            border: '2px solid #FEE000',
-            borderRadius: '6px',
-            background: '#FEE000',
-            color: '#1C0962',
-            cursor: 'pointer',
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-            fontWeight: 600
-          }}
-        >
-          Admin Access
-        </button>
+        {/* Policies Section */}
+        <div style={{ maxWidth: '1200px', margin: '0 auto', marginBottom: '3rem' }}>
+          <h3 style={{ fontSize: '20px', fontWeight: 600, margin: '0 0 1.5rem', color: '#fff' }}>
+            Policies
+          </h3>
+          <p style={{ fontSize: '14px', color: '#999', margin: '0 0 1.5rem' }}>
+            Guidelines, handbooks & company policies
+          </p>
+          
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
+            {policies.map(item => (
+              <div
+                key={item.id}
+                onClick={() => handleViewDetail(item)}
+                style={{
+                  background: `linear-gradient(135deg, ${item.color} 0%, ${item.color}dd 100%)`,
+                  borderRadius: '12px',
+                  padding: '24px',
+                  cursor: 'pointer',
+                  border: '1px solid rgba(254, 224, 0, 0.3)',
+                  transition: 'all 0.3s ease',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  minHeight: '200px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'}
+                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+              >
+                <div>
+                  <span style={{ fontSize: '11px', fontWeight: 700, color: '#FEE000', letterSpacing: '1px' }}>
+                    {item.category.toUpperCase()}
+                  </span>
+                  <div style={{ width: '40px', height: '3px', background: '#FEE000', margin: '8px 0' }} />
+                  <h4 style={{ fontSize: '18px', fontWeight: 700, margin: '12px 0 8px', color: '#fff' }}>
+                    {item.title}
+                  </h4>
+                  <p style={{ fontSize: '14px', color: 'rgba(255,255,255,0.8)', margin: 0 }}>
+                    {item.description}
+                  </p>
+                </div>
+                <a href="#" onClick={(e) => e.preventDefault()} style={{ fontSize: '13px', color: '#FEE000', textDecoration: 'none', fontWeight: 600, marginTop: '12px' }}>
+                  View details →
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Admin Button */}
+        <div style={{ maxWidth: '1200px', margin: '0 auto', marginTop: '3rem' }}>
+          <button
+            onClick={() => setView('admin-login')}
+            style={{
+              padding: '10px 16px',
+              fontSize: '13px',
+              background: 'transparent',
+              border: '1px solid #FEE000',
+              color: '#FEE000',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontWeight: 600
+            }}
+          >
+            Admin Access
+          </button>
+        </div>
       </div>
     );
   }
 
-  if (showPasswordPrompt && !isAuthenticated) {
+  // ============ DETAIL VIEW ============
+  if (view === 'detail' && selectedItem) {
     return (
-      <div style={{ maxWidth: '400px', margin: '4rem auto', padding: '1rem' }}>
-        <div style={{
-          background: '#fff',
-          border: '2px solid #FEE000',
-          borderRadius: '8px',
-          padding: '2rem',
-          textAlign: 'center'
-        }}>
-          <h2 style={{ fontSize: '20px', fontWeight: 600, margin: '0 0 1.5rem', color: '#1C0962' }}>
+      <div style={{ minHeight: '100vh', background: '#0f1419', color: '#fff', padding: '2rem 1rem' }}>
+        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+          {/* Back Button */}
+          <button
+            onClick={() => setView('home')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'transparent',
+              border: 'none',
+              color: '#FEE000',
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontWeight: 600,
+              marginBottom: '2rem'
+            }}
+          >
+            <ChevronLeft size={18} />
+            Back
+          </button>
+
+          {/* Detail Card */}
+          <div style={{
+            background: `linear-gradient(135deg, ${selectedItem.color} 0%, ${selectedItem.color}dd 100%)`,
+            borderRadius: '12px',
+            padding: '40px',
+            border: '1px solid rgba(254, 224, 0, 0.3)'
+          }}>
+            <span style={{ fontSize: '12px', fontWeight: 700, color: '#FEE000', letterSpacing: '1px' }}>
+              {selectedItem.category.toUpperCase()}
+            </span>
+            <div style={{ width: '60px', height: '4px', background: '#FEE000', margin: '12px 0 24px' }} />
+            
+            <h1 style={{ fontSize: '36px', fontWeight: 700, margin: '0 0 16px', color: '#fff' }}>
+              {selectedItem.title}
+            </h1>
+            
+            <p style={{ fontSize: '18px', color: 'rgba(255,255,255,0.9)', margin: 0, lineHeight: '1.6' }}>
+              {selectedItem.details}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ============ ADMIN LOGIN ============
+  if (view === 'admin-login') {
+    return (
+      <div style={{ minHeight: '100vh', background: '#0f1419', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+        <div style={{ background: '#1a1f26', padding: '2rem', borderRadius: '12px', border: '1px solid #FEE000', maxWidth: '400px', width: '100%' }}>
+          <h2 style={{ fontSize: '24px', fontWeight: 700, margin: '0 0 1.5rem', color: '#FEE000' }}>
             Admin Access
           </h2>
           <input
@@ -169,50 +351,44 @@ export default function App() {
               width: '100%',
               padding: '10px 12px',
               fontSize: '14px',
-              border: '2px solid #FEE000',
+              border: '1px solid #FEE000',
               borderRadius: '6px',
               marginBottom: '1rem',
               boxSizing: 'border-box',
-              fontFamily: 'system-ui, -apple-system, sans-serif'
+              background: '#0f1419',
+              color: '#fff'
             }}
             autoFocus
           />
-          <p style={{ fontSize: '12px', color: '#999', margin: '0 0 1.5rem', fontStyle: 'italic' }}>
-            Default password: admin123
-          </p>
           <div style={{ display: 'flex', gap: '8px' }}>
             <button
               onClick={handleAdminAccess}
               style={{
                 flex: 1,
                 padding: '10px',
-                fontSize: '14px',
                 background: '#FEE000',
                 color: '#1C0962',
                 border: 'none',
                 borderRadius: '6px',
                 cursor: 'pointer',
                 fontWeight: 600,
-                fontFamily: 'system-ui, -apple-system, sans-serif'
+                fontSize: '14px'
               }}
             >
-              Access Admin
+              Access
             </button>
             <button
-              onClick={() => {
-                setShowPasswordPrompt(false);
-                setAdminPassword('');
-              }}
+              onClick={() => setView('home')}
               style={{
                 flex: 1,
                 padding: '10px',
-                fontSize: '14px',
-                background: '#f5f5f5',
-                color: '#1C0962',
-                border: '2px solid #FEE000',
+                background: 'transparent',
+                color: '#FEE000',
+                border: '1px solid #FEE000',
                 borderRadius: '6px',
                 cursor: 'pointer',
-                fontFamily: 'system-ui, -apple-system, sans-serif'
+                fontWeight: 600,
+                fontSize: '14px'
               }}
             >
               Cancel
@@ -223,265 +399,264 @@ export default function App() {
     );
   }
 
-  return (
-    <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '28px', fontWeight: 600, margin: 0, color: '#1C0962' }}>
-          Admin Dashboard
-        </h1>
-        <button
-          onClick={handleLogout}
-          style={{
-            padding: '8px 16px',
-            fontSize: '14px',
-            background: '#f5f5f5',
-            border: '2px solid #FEE000',
-            borderRadius: '6px',
-            cursor: 'pointer',
-            color: '#1C0962',
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-            fontWeight: 600
-          }}
-        >
-          Logout
-        </button>
-      </div>
+  // ============ ADMIN VIEW ============
+  if (view === 'admin' && adminMode) {
+    return (
+      <div style={{ minHeight: '100vh', background: '#0f1419', color: '#fff', padding: '2rem 1rem' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+            <h1 style={{ fontSize: '32px', fontWeight: 700, margin: 0, color: '#FEE000' }}>
+              Admin Dashboard
+            </h1>
+            <button
+              onClick={() => { setAdminMode(false); setView('home'); }}
+              style={{
+                padding: '8px 16px',
+                background: 'transparent',
+                border: '1px solid #FEE000',
+                color: '#FEE000',
+                borderRadius: '6px',
+                cursor: 'pointer',
+                fontWeight: 600
+              }}
+            >
+              Logout
+            </button>
+          </div>
 
-      <div style={{
-        background: '#fff',
-        border: '2px solid #FEE000',
-        borderRadius: '8px',
-        padding: '16px',
-        marginBottom: '2rem'
-      }}>
-        <h2 style={{ fontSize: '16px', fontWeight: 600, margin: '0 0 16px', color: '#1C0962' }}>
-          <Plus style={{ width: '16px', height: '16px', display: 'inline', marginRight: '8px', verticalAlign: '-2px' }} />
-          Add New Item
-        </h2>
-        <div style={{ display: 'grid', gap: '12px' }}>
-          <input
-            type="text"
-            placeholder="Category"
-            value={newItem.category}
-            onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
-            style={{
-              padding: '10px 12px',
-              fontSize: '14px',
-              border: '2px solid #FEE000',
-              borderRadius: '6px',
-              backgroundColor: '#fff',
-              boxSizing: 'border-box',
-              fontFamily: 'system-ui, -apple-system, sans-serif'
-            }}
-          />
-          <input
-            type="text"
-            placeholder="Title"
-            value={newItem.title}
-            onChange={(e) => setNewItem({ ...newItem, title: e.target.value })}
-            style={{
-              padding: '10px 12px',
-              fontSize: '14px',
-              border: '2px solid #FEE000',
-              borderRadius: '6px',
-              backgroundColor: '#fff',
-              boxSizing: 'border-box',
-              fontFamily: 'system-ui, -apple-system, sans-serif'
-            }}
-          />
-          <textarea
-            placeholder="Description"
-            value={newItem.content}
-            onChange={(e) => setNewItem({ ...newItem, content: e.target.value })}
-            style={{
-              padding: '10px 12px',
-              fontSize: '14px',
-              border: '2px solid #FEE000',
-              borderRadius: '6px',
-              backgroundColor: '#fff',
-              minHeight: '100px',
-              fontFamily: 'system-ui, -apple-system, sans-serif',
-              boxSizing: 'border-box'
-            }}
-          />
-          <button
-            onClick={handleAddItem}
-            style={{
-              padding: '10px 16px',
-              fontSize: '14px',
-              background: '#FEE000',
-              color: '#1C0962',
-              border: 'none',
-              borderRadius: '6px',
-              cursor: 'pointer',
-              fontWeight: 600,
-              fontFamily: 'system-ui, -apple-system, sans-serif'
-            }}
-          >
-            Add Item
-          </button>
+          {/* Add Item */}
+          <div style={{ background: '#1a1f26', padding: '20px', borderRadius: '12px', border: '1px solid #FEE000', marginBottom: '2rem' }}>
+            <h3 style={{ fontSize: '16px', fontWeight: 600, margin: '0 0 1rem', color: '#FEE000' }}>
+              <Plus size={16} style={{ display: 'inline', marginRight: '8px', verticalAlign: '-2px' }} />
+              Add New Item
+            </h3>
+            <div style={{ display: 'grid', gap: '12px' }}>
+              <select
+                value={newItem.type}
+                onChange={(e) => setNewItem({ ...newItem, type: e.target.value })}
+                style={{
+                  padding: '8px',
+                  border: '1px solid #FEE000',
+                  borderRadius: '6px',
+                  background: '#0f1419',
+                  color: '#fff',
+                  fontSize: '14px'
+                }}
+              >
+                <option value="benefit">Benefit</option>
+                <option value="policy">Policy</option>
+              </select>
+              <input
+                type="text"
+                placeholder="Category"
+                value={newItem.category}
+                onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
+                style={{
+                  padding: '8px',
+                  border: '1px solid #FEE000',
+                  borderRadius: '6px',
+                  background: '#0f1419',
+                  color: '#fff',
+                  fontSize: '14px',
+                  boxSizing: 'border-box'
+                }}
+              />
+              <input
+                type="text"
+                placeholder="Title"
+                value={newItem.title}
+                onChange={(e) => setNewItem({ ...newItem, title: e.target.value })}
+                style={{
+                  padding: '8px',
+                  border: '1px solid #FEE000',
+                  borderRadius: '6px',
+                  background: '#0f1419',
+                  color: '#fff',
+                  fontSize: '14px',
+                  boxSizing: 'border-box'
+                }}
+              />
+              <input
+                type="text"
+                placeholder="Description"
+                value={newItem.description}
+                onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
+                style={{
+                  padding: '8px',
+                  border: '1px solid #FEE000',
+                  borderRadius: '6px',
+                  background: '#0f1419',
+                  color: '#fff',
+                  fontSize: '14px',
+                  boxSizing: 'border-box'
+                }}
+              />
+              <textarea
+                placeholder="Full Details"
+                value={newItem.details}
+                onChange={(e) => setNewItem({ ...newItem, details: e.target.value })}
+                style={{
+                  padding: '8px',
+                  border: '1px solid #FEE000',
+                  borderRadius: '6px',
+                  background: '#0f1419',
+                  color: '#fff',
+                  fontSize: '14px',
+                  minHeight: '80px',
+                  boxSizing: 'border-box',
+                  fontFamily: 'monospace'
+                }}
+              />
+              <button
+                onClick={handleAddItem}
+                style={{
+                  padding: '8px',
+                  background: '#FEE000',
+                  color: '#1C0962',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  fontWeight: 600
+                }}
+              >
+                Add Item
+              </button>
+            </div>
+          </div>
+
+          {/* Items List */}
+          <h3 style={{ fontSize: '18px', fontWeight: 600, margin: '0 0 1rem', color: '#FEE000' }}>
+            Manage Items ({items.length})
+          </h3>
+          <div style={{ display: 'grid', gap: '12px' }}>
+            {items.map(item => (
+              <div key={item.id} style={{ background: '#1a1f26', padding: '16px', borderRadius: '8px', border: '1px solid #FEE000' }}>
+                {editingId === item.id ? (
+                  <div style={{ display: 'grid', gap: '8px' }}>
+                    <input
+                      type="text"
+                      value={editData.title}
+                      onChange={(e) => setEditData({ ...editData, title: e.target.value })}
+                      style={{
+                        padding: '8px',
+                        border: '1px solid #FEE000',
+                        borderRadius: '6px',
+                        background: '#0f1419',
+                        color: '#fff',
+                        fontSize: '14px',
+                        boxSizing: 'border-box'
+                      }}
+                    />
+                    <textarea
+                      value={editData.details}
+                      onChange={(e) => setEditData({ ...editData, details: e.target.value })}
+                      style={{
+                        padding: '8px',
+                        border: '1px solid #FEE000',
+                        borderRadius: '6px',
+                        background: '#0f1419',
+                        color: '#fff',
+                        fontSize: '14px',
+                        minHeight: '60px',
+                        boxSizing: 'border-box',
+                        fontFamily: 'monospace'
+                      }}
+                    />
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <button
+                        onClick={handleSaveEdit}
+                        style={{
+                          flex: 1,
+                          padding: '6px',
+                          background: '#6be084',
+                          color: '#000',
+                          border: 'none',
+                          borderRadius: '6px',
+                          cursor: 'pointer',
+                          fontWeight: 600,
+                          fontSize: '13px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '4px'
+                        }}
+                      >
+                        <Check size={14} /> Save
+                      </button>
+                      <button
+                        onClick={() => setEditingId(null)}
+                        style={{
+                          flex: 1,
+                          padding: '6px',
+                          background: 'transparent',
+                          color: '#FEE000',
+                          border: '1px solid #FEE000',
+                          borderRadius: '6px',
+                          cursor: 'pointer',
+                          fontWeight: 600,
+                          fontSize: '13px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '4px'
+                        }}
+                      >
+                        <X size={14} /> Cancel
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
+                    <div>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#19bbee' }}>
+                        {item.type.toUpperCase()} • {item.category}
+                      </span>
+                      <h4 style={{ fontSize: '15px', fontWeight: 600, margin: '4px 0', color: '#FEE000' }}>
+                        {item.title}
+                      </h4>
+                      <p style={{ fontSize: '13px', color: '#999', margin: 0 }}>
+                        {item.description}
+                      </p>
+                    </div>
+                    <div style={{ display: 'flex', gap: '6px' }}>
+                      <button
+                        onClick={() => handleEditItem(item)}
+                        style={{
+                          padding: '6px',
+                          background: '#FEE000',
+                          color: '#1C0962',
+                          border: 'none',
+                          borderRadius: '6px',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <Edit2 size={14} />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteItem(item.id)}
+                        style={{
+                          padding: '6px',
+                          background: '#f45e04',
+                          color: '#fff',
+                          border: 'none',
+                          borderRadius: '6px',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-
-      <h2 style={{ fontSize: '18px', fontWeight: 600, margin: '1.5rem 0 16px', color: '#1C0962' }}>
-        Manage Items ({items.length})
-      </h2>
-      <div style={{ display: 'grid', gap: '12px' }}>
-        {items.map(item => (
-          <div key={item.id} style={{
-            background: '#fff',
-            border: '2px solid #FEE000',
-            borderRadius: '8px',
-            padding: '12px',
-          }}>
-            {editingId === item.id ? (
-              <div style={{ display: 'grid', gap: '8px' }}>
-                <input
-                  type="text"
-                  value={editData.title}
-                  onChange={(e) => setEditData({ ...editData, title: e.target.value })}
-                  style={{
-                    padding: '8px',
-                    fontSize: '14px',
-                    border: '2px solid #FEE000',
-                    borderRadius: '6px',
-                    backgroundColor: '#fff',
-                    boxSizing: 'border-box',
-                    fontFamily: 'system-ui, -apple-system, sans-serif'
-                  }}
-                />
-                <textarea
-                  value={editData.content}
-                  onChange={(e) => setEditData({ ...editData, content: e.target.value })}
-                  style={{
-                    padding: '8px',
-                    fontSize: '14px',
-                    border: '2px solid #FEE000',
-                    borderRadius: '6px',
-                    backgroundColor: '#fff',
-                    minHeight: '80px',
-                    fontFamily: 'system-ui, -apple-system, sans-serif',
-                    boxSizing: 'border-box'
-                  }}
-                />
-                <div style={{ display: 'flex', gap: '8px' }}>
-                  <button
-                    onClick={handleSaveEdit}
-                    style={{
-                      padding: '6px 12px',
-                      fontSize: '13px',
-                      background: '#6be084',
-                      color: '#fff',
-                      border: 'none',
-                      borderRadius: '6px',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      fontFamily: 'system-ui, -apple-system, sans-serif'
-                    }}
-                  >
-                    <Check style={{ width: '14px', height: '14px' }} /> Save
-                  </button>
-                  <button
-                    onClick={() => setEditingId(null)}
-                    style={{
-                      padding: '6px 12px',
-                      fontSize: '13px',
-                      background: '#f5f5f5',
-                      border: '2px solid #FEE000',
-                      borderRadius: '6px',
-                      cursor: 'pointer',
-                      color: '#1C0962',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      fontFamily: 'system-ui, -apple-system, sans-serif'
-                    }}
-                  >
-                    <X style={{ width: '14px', height: '14px' }} /> Cancel
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '4px' }}>
-                    <span style={{
-                      fontSize: '12px',
-                      background: '#19bbee',
-                      color: '#fff',
-                      padding: '2px 8px',
-                      borderRadius: '4px'
-                    }}>
-                      {item.category}
-                    </span>
-                  </div>
-                  <h3 style={{ fontSize: '15px', fontWeight: 600, margin: '0 0 4px', color: '#1C0962' }}>
-                    {item.title}
-                  </h3>
-                  <p style={{ fontSize: '14px', color: '#000000', margin: 0, lineHeight: 1.5 }}>
-                    {item.content}
-                  </p>
-                </div>
-                <div style={{ display: 'flex', gap: '6px', marginLeft: '12px' }}>
-                  <button
-                    onClick={() => handleEdit(item)}
-                    style={{
-                      padding: '6px',
-                      background: '#FEE000',
-                      border: 'none',
-                      borderRadius: '6px',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      color: '#1C0962'
-                    }}
-                  >
-                    <Edit2 style={{ width: '14px', height: '14px' }} />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(item.id)}
-                    style={{
-                      padding: '6px',
-                      background: '#f45e04',
-                      border: 'none',
-                      borderRadius: '6px',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      color: '#fff'
-                    }}
-                  >
-                    <Trash2 style={{ width: '14px', height: '14px' }} />
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-
-      <button
-        onClick={() => {
-          setMode('employee');
-          handleLogout();
-        }}
-        style={{
-          marginTop: '2rem',
-          padding: '10px 16px',
-          fontSize: '14px',
-          border: '2px solid #FEE000',
-          borderRadius: '6px',
-          background: '#FEE000',
-          color: '#1C0962',
-          cursor: 'pointer',
-          fontFamily: 'system-ui, -apple-system, sans-serif',
-          fontWeight: 600
-        }}
-      >
-        View as Employee
-      </button>
-    </div>
-  );
+    );
+  }
 }
