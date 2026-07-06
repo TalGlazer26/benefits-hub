@@ -61,10 +61,10 @@ export default function App() {
     return (
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem 1rem' }}>
         <div style={{ marginBottom: '2rem' }}>
-          <h1 style={{ fontSize: '28px', fontWeight: 600, margin: '0 0 0.5rem', color: '#1a1a1a' }}>
-            Benefits & Policies Hub
+          <h1 style={{ fontSize: '28px', fontWeight: 600, margin: '0 0 0.5rem', color: '#1C0962' }}>
+            IL Benefits & Policies Hub
           </h1>
-          <p style={{ fontSize: '16px', color: '#666', margin: 0 }}>
+          <p style={{ fontSize: '16px', color: '#000000', margin: 0 }}>
             Find all information about your benefits and company policies
           </p>
         </div>
@@ -81,7 +81,7 @@ export default function App() {
               paddingLeft: '40px',
               padding: '12px 12px 12px 40px',
               fontSize: '15px',
-              border: '1px solid #ddd',
+              border: '2px solid #FEE000',
               borderRadius: '8px',
               backgroundColor: '#fff',
               boxSizing: 'border-box',
@@ -95,18 +95,18 @@ export default function App() {
             filteredItems.map(item => (
               <div key={item.id} style={{
                 background: '#fff',
-                border: '1px solid #e0e0e0',
+                border: '2px solid #FEE000',
                 borderRadius: '8px',
                 padding: '16px',
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '8px' }}>
-                  <h3 style={{ fontSize: '16px', fontWeight: 600, margin: 0, color: '#1a1a1a' }}>
+                  <h3 style={{ fontSize: '16px', fontWeight: 600, margin: 0, color: '#1C0962' }}>
                     {item.title}
                   </h3>
                   <span style={{
                     fontSize: '12px',
-                    background: '#e3f2fd',
-                    color: '#1976d2',
+                    background: '#19bbee',
+                    color: '#fff',
                     padding: '4px 10px',
                     borderRadius: '6px',
                     whiteSpace: 'nowrap'
@@ -114,7 +114,7 @@ export default function App() {
                     {item.category}
                   </span>
                 </div>
-                <p style={{ fontSize: '15px', color: '#555', margin: 0, lineHeight: 1.6 }}>
+                <p style={{ fontSize: '15px', color: '#000000', margin: 0, lineHeight: 1.6 }}>
                   {item.content}
                 </p>
               </div>
@@ -131,12 +131,13 @@ export default function App() {
           style={{
             padding: '10px 16px',
             fontSize: '14px',
-            border: '1px solid #ddd',
+            border: '2px solid #FEE000',
             borderRadius: '6px',
-            background: '#f5f5f5',
-            color: '#666',
+            background: '#FEE000',
+            color: '#1C0962',
             cursor: 'pointer',
-            fontFamily: 'system-ui, -apple-system, sans-serif'
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            fontWeight: 600
           }}
         >
           Admin Access
@@ -150,12 +151,12 @@ export default function App() {
       <div style={{ maxWidth: '400px', margin: '4rem auto', padding: '1rem' }}>
         <div style={{
           background: '#fff',
-          border: '1px solid #ddd',
+          border: '2px solid #FEE000',
           borderRadius: '8px',
           padding: '2rem',
           textAlign: 'center'
         }}>
-          <h2 style={{ fontSize: '20px', fontWeight: 600, margin: '0 0 1.5rem', color: '#1a1a1a' }}>
+          <h2 style={{ fontSize: '20px', fontWeight: 600, margin: '0 0 1.5rem', color: '#1C0962' }}>
             Admin Access
           </h2>
           <input
@@ -168,7 +169,7 @@ export default function App() {
               width: '100%',
               padding: '10px 12px',
               fontSize: '14px',
-              border: '1px solid #ddd',
+              border: '2px solid #FEE000',
               borderRadius: '6px',
               marginBottom: '1rem',
               boxSizing: 'border-box',
@@ -186,12 +187,12 @@ export default function App() {
                 flex: 1,
                 padding: '10px',
                 fontSize: '14px',
-                background: '#1976d2',
-                color: '#fff',
+                background: '#FEE000',
+                color: '#1C0962',
                 border: 'none',
                 borderRadius: '6px',
                 cursor: 'pointer',
-                fontWeight: 500,
+                fontWeight: 600,
                 fontFamily: 'system-ui, -apple-system, sans-serif'
               }}
             >
@@ -207,8 +208,8 @@ export default function App() {
                 padding: '10px',
                 fontSize: '14px',
                 background: '#f5f5f5',
-                color: '#666',
-                border: '1px solid #ddd',
+                color: '#1C0962',
+                border: '2px solid #FEE000',
                 borderRadius: '6px',
                 cursor: 'pointer',
                 fontFamily: 'system-ui, -apple-system, sans-serif'
@@ -225,7 +226,7 @@ export default function App() {
   return (
     <div style={{ maxWidth: '900px', margin: '0 auto', padding: '2rem 1rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '28px', fontWeight: 600, margin: 0, color: '#1a1a1a' }}>
+        <h1 style={{ fontSize: '28px', fontWeight: 600, margin: 0, color: '#1C0962' }}>
           Admin Dashboard
         </h1>
         <button
@@ -234,11 +235,12 @@ export default function App() {
             padding: '8px 16px',
             fontSize: '14px',
             background: '#f5f5f5',
-            border: '1px solid #ddd',
+            border: '2px solid #FEE000',
             borderRadius: '6px',
             cursor: 'pointer',
-            color: '#666',
-            fontFamily: 'system-ui, -apple-system, sans-serif'
+            color: '#1C0962',
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            fontWeight: 600
           }}
         >
           Logout
@@ -247,12 +249,12 @@ export default function App() {
 
       <div style={{
         background: '#fff',
-        border: '1px solid #ddd',
+        border: '2px solid #FEE000',
         borderRadius: '8px',
         padding: '16px',
         marginBottom: '2rem'
       }}>
-        <h2 style={{ fontSize: '16px', fontWeight: 600, margin: '0 0 16px', color: '#1a1a1a' }}>
+        <h2 style={{ fontSize: '16px', fontWeight: 600, margin: '0 0 16px', color: '#1C0962' }}>
           <Plus style={{ width: '16px', height: '16px', display: 'inline', marginRight: '8px', verticalAlign: '-2px' }} />
           Add New Item
         </h2>
@@ -265,7 +267,7 @@ export default function App() {
             style={{
               padding: '10px 12px',
               fontSize: '14px',
-              border: '1px solid #ddd',
+              border: '2px solid #FEE000',
               borderRadius: '6px',
               backgroundColor: '#fff',
               boxSizing: 'border-box',
@@ -280,7 +282,7 @@ export default function App() {
             style={{
               padding: '10px 12px',
               fontSize: '14px',
-              border: '1px solid #ddd',
+              border: '2px solid #FEE000',
               borderRadius: '6px',
               backgroundColor: '#fff',
               boxSizing: 'border-box',
@@ -294,7 +296,7 @@ export default function App() {
             style={{
               padding: '10px 12px',
               fontSize: '14px',
-              border: '1px solid #ddd',
+              border: '2px solid #FEE000',
               borderRadius: '6px',
               backgroundColor: '#fff',
               minHeight: '100px',
@@ -307,12 +309,12 @@ export default function App() {
             style={{
               padding: '10px 16px',
               fontSize: '14px',
-              background: '#1976d2',
-              color: '#fff',
+              background: '#FEE000',
+              color: '#1C0962',
               border: 'none',
               borderRadius: '6px',
               cursor: 'pointer',
-              fontWeight: 500,
+              fontWeight: 600,
               fontFamily: 'system-ui, -apple-system, sans-serif'
             }}
           >
@@ -321,14 +323,14 @@ export default function App() {
         </div>
       </div>
 
-      <h2 style={{ fontSize: '18px', fontWeight: 600, margin: '1.5rem 0 16px', color: '#1a1a1a' }}>
+      <h2 style={{ fontSize: '18px', fontWeight: 600, margin: '1.5rem 0 16px', color: '#1C0962' }}>
         Manage Items ({items.length})
       </h2>
       <div style={{ display: 'grid', gap: '12px' }}>
         {items.map(item => (
           <div key={item.id} style={{
             background: '#fff',
-            border: '1px solid #e0e0e0',
+            border: '2px solid #FEE000',
             borderRadius: '8px',
             padding: '12px',
           }}>
@@ -341,7 +343,7 @@ export default function App() {
                   style={{
                     padding: '8px',
                     fontSize: '14px',
-                    border: '1px solid #ddd',
+                    border: '2px solid #FEE000',
                     borderRadius: '6px',
                     backgroundColor: '#fff',
                     boxSizing: 'border-box',
@@ -354,7 +356,7 @@ export default function App() {
                   style={{
                     padding: '8px',
                     fontSize: '14px',
-                    border: '1px solid #ddd',
+                    border: '2px solid #FEE000',
                     borderRadius: '6px',
                     backgroundColor: '#fff',
                     minHeight: '80px',
@@ -368,7 +370,7 @@ export default function App() {
                     style={{
                       padding: '6px 12px',
                       fontSize: '13px',
-                      background: '#4caf50',
+                      background: '#6be084',
                       color: '#fff',
                       border: 'none',
                       borderRadius: '6px',
@@ -387,10 +389,10 @@ export default function App() {
                       padding: '6px 12px',
                       fontSize: '13px',
                       background: '#f5f5f5',
-                      border: '1px solid #ddd',
+                      border: '2px solid #FEE000',
                       borderRadius: '6px',
                       cursor: 'pointer',
-                      color: '#666',
+                      color: '#1C0962',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '4px',
@@ -407,18 +409,18 @@ export default function App() {
                   <div style={{ display: 'flex', gap: '8px', alignItems: 'center', marginBottom: '4px' }}>
                     <span style={{
                       fontSize: '12px',
-                      background: '#e3f2fd',
-                      color: '#1976d2',
+                      background: '#19bbee',
+                      color: '#fff',
                       padding: '2px 8px',
                       borderRadius: '4px'
                     }}>
                       {item.category}
                     </span>
                   </div>
-                  <h3 style={{ fontSize: '15px', fontWeight: 600, margin: '0 0 4px', color: '#1a1a1a' }}>
+                  <h3 style={{ fontSize: '15px', fontWeight: 600, margin: '0 0 4px', color: '#1C0962' }}>
                     {item.title}
                   </h3>
-                  <p style={{ fontSize: '14px', color: '#666', margin: 0, lineHeight: 1.5 }}>
+                  <p style={{ fontSize: '14px', color: '#000000', margin: 0, lineHeight: 1.5 }}>
                     {item.content}
                   </p>
                 </div>
@@ -427,13 +429,13 @@ export default function App() {
                     onClick={() => handleEdit(item)}
                     style={{
                       padding: '6px',
-                      background: '#f5f5f5',
-                      border: '1px solid #ddd',
+                      background: '#FEE000',
+                      border: 'none',
                       borderRadius: '6px',
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
-                      color: '#666'
+                      color: '#1C0962'
                     }}
                   >
                     <Edit2 style={{ width: '14px', height: '14px' }} />
@@ -442,13 +444,13 @@ export default function App() {
                     onClick={() => handleDelete(item.id)}
                     style={{
                       padding: '6px',
-                      background: '#f5f5f5',
-                      border: '1px solid #ddd',
+                      background: '#f45e04',
+                      border: 'none',
                       borderRadius: '6px',
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
-                      color: '#d32f2f'
+                      color: '#fff'
                     }}
                   >
                     <Trash2 style={{ width: '14px', height: '14px' }} />
@@ -469,12 +471,13 @@ export default function App() {
           marginTop: '2rem',
           padding: '10px 16px',
           fontSize: '14px',
-          border: '1px solid #ddd',
+          border: '2px solid #FEE000',
           borderRadius: '6px',
-          background: '#f5f5f5',
-          color: '#666',
+          background: '#FEE000',
+          color: '#1C0962',
           cursor: 'pointer',
-          fontFamily: 'system-ui, -apple-system, sans-serif'
+          fontFamily: 'system-ui, -apple-system, sans-serif',
+          fontWeight: 600
         }}
       >
         View as Employee
