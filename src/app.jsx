@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronLeft, Plus, Edit2, Trash2, Check, X, Heart, Thumbs2, Smile } from 'lucide-react';
+import { ChevronLeft, Plus, Edit2, Trash2, Check, X } from 'lucide-react';
 
 export default function App() {
   const [view, setView] = useState('home');
@@ -168,13 +168,9 @@ export default function App() {
 
           {/* Content */}
           <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-            <h1 style={{ fontSize: '32px', fontWeight: 700, margin: 0, color: '#000' }}>
-              personetics
-            </h1>
-            <p style={{ fontSize: '14px', color: '#333', margin: '0.5rem 0 2rem' }}>
-              IL Benefits & Policies Hub
-            </p>
-
+            {/* Logo */}
+            <img src="/logo.png" alt="Personetics" style={{ height: '40px', marginBottom: '1.5rem' }} />
+            
             <h2 style={{ fontSize: '28px', fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
               Welcome to your Benefits.
             </h2>
