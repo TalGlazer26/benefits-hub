@@ -173,11 +173,11 @@ export default function App() {
         }}>
           {/* Logo - Top Left */}
           <div style={{ alignSelf: 'flex-start' }}>
-            <img src="/Logo.png" alt="Personetics" style={{ height: '36px' }} />
+            <img src="/Logo.png" alt="Personetics" style={{ height: '40px' }} />
           </div>
 
           {/* Content - Main Area */}
-          <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 2, width: '100%' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 2, width: '100%', marginTop: '3rem' }}>
             {/* Country Flag + Name */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.5rem', fontSize: '18px', fontWeight: 600, color: '#fff' }}>
               <img src="/il flag.png" alt="Israel flag" style={{ height: '32px' }} />
