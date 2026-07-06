@@ -161,17 +161,13 @@ export default function App() {
       <div style={{ minHeight: '100vh', background: '#fafaf8', color: '#000' }}>
         {/* Top Navigation Bar */}
         <div style={{
-          background: '#000',
+          background: '#fee000',
           padding: '1rem 2rem',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
           <img src="/Logo.png" alt="Personetics" style={{ height: '32px' }} />
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#fff', fontWeight: 600 }}>
-            <img src="/il flag.png" alt="Israel flag" style={{ height: '24px', marginRight: '4px' }} />
-            {content.countryName}
-          </div>
         </div>
 
         {/* Banner Section */}
@@ -179,18 +175,27 @@ export default function App() {
           backgroundImage: 'url(/Banner.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          padding: '4rem 2rem',
+          padding: '3rem 2rem 4rem 2rem',
           position: 'relative',
-          minHeight: '300px',
+          minHeight: '350px',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center'
+          justifyContent: 'flex-start'
         }}>
           {/* Content */}
           <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 2, width: '100%' }}>
-            <h2 style={{ fontSize: `${content.mainTitleSize}px`, fontWeight: 700, margin: '0 0 1rem', color: '#fff', letterSpacing: '-1px' }}>
+            {/* Country Flag + Name */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2rem', fontSize: '16px', fontWeight: 600, color: '#fff' }}>
+              <img src="/il flag.png" alt="Israel flag" style={{ height: '28px' }} />
+              <span>{content.countryName}</span>
+            </div>
+
+            {/* Main Title */}
+            <h2 style={{ fontSize: `${content.mainTitleSize}px`, fontWeight: 700, margin: '0 0 1.5rem', color: '#fff', letterSpacing: '-1px' }}>
               {content.mainTitle}
             </h2>
+
+            {/* Subtitle */}
             <p style={{ fontSize: '18px', color: '#fff', margin: 0, opacity: 0.95 }}>
               You have {items.length} active benefits and policies available.
             </p>
