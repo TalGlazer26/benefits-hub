@@ -140,7 +140,7 @@ export default function App() {
       <div style={{ minHeight: '100vh', background: '#fafaf8', color: '#000' }}>
         {/* Banner Section */}
         <div style={{
-          backgroundImage: 'url(/banner-top.jpg)',
+          backgroundImage: 'url(/Banner.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           padding: '4rem 2rem',
@@ -164,7 +164,7 @@ export default function App() {
           {/* Content */}
           <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 2, width: '100%' }}>
             {/* Logo */}
-            <img src="/logo.png" alt="Personetics" style={{ height: '60px', marginBottom: '2rem', display: 'block' }} />
+            <img src="/Logo.png" alt="Personetics" style={{ height: '60px', marginBottom: '2rem', display: 'block' }} />
             
             <h2 style={{ fontSize: '32px', fontWeight: 700, margin: '0 0 1rem', color: '#fff' }}>
               Welcome to your Benefits.
@@ -584,123 +584,3 @@ export default function App() {
                       style={{
                         padding: '8px',
                         border: '2px solid #fee000',
-                        borderRadius: '6px',
-                        background: '#fafaf8',
-                        color: '#000',
-                        fontSize: '14px',
-                        boxSizing: 'border-box'
-                      }}
-                    />
-                    <textarea
-                      value={editData.details}
-                      onChange={(e) => setEditData({ ...editData, details: e.target.value })}
-                      style={{
-                        padding: '8px',
-                        border: '2px solid #fee000',
-                        borderRadius: '6px',
-                        background: '#fafaf8',
-                        color: '#000',
-                        fontSize: '14px',
-                        minHeight: '60px',
-                        boxSizing: 'border-box',
-                        fontFamily: 'monospace'
-                      }}
-                    />
-                    <div style={{ display: 'flex', gap: '8px' }}>
-                      <button
-                        onClick={handleSaveEdit}
-                        style={{
-                          flex: 1,
-                          padding: '6px',
-                          background: '#6be084',
-                          color: '#000',
-                          border: 'none',
-                          borderRadius: '6px',
-                          cursor: 'pointer',
-                          fontWeight: 600,
-                          fontSize: '13px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '4px'
-                        }}
-                      >
-                        <Check size={14} /> Save
-                      </button>
-                      <button
-                        onClick={() => setEditingId(null)}
-                        style={{
-                          flex: 1,
-                          padding: '6px',
-                          background: '#f5f5f5',
-                          color: '#000',
-                          border: '2px solid #fee000',
-                          borderRadius: '6px',
-                          cursor: 'pointer',
-                          fontWeight: 600,
-                          fontSize: '13px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: '4px'
-                        }}
-                      >
-                        <X size={14} /> Cancel
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
-                    <div>
-                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#000', opacity: 0.6 }}>
-                        {item.type.toUpperCase()} • {item.category}
-                      </span>
-                      <h4 style={{ fontSize: '15px', fontWeight: 700, margin: '4px 0', color: '#000' }}>
-                        {item.title}
-                      </h4>
-                      <p style={{ fontSize: '13px', color: '#666', margin: 0 }}>
-                        {item.description}
-                      </p>
-                    </div>
-                    <div style={{ display: 'flex', gap: '6px' }}>
-                      <button
-                        onClick={() => handleEditItem(item)}
-                        style={{
-                          padding: '6px',
-                          background: '#fee000',
-                          color: '#000',
-                          border: 'none',
-                          borderRadius: '6px',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center'
-                        }}
-                      >
-                        <Edit2 size={14} />
-                      </button>
-                      <button
-                        onClick={() => handleDeleteItem(item.id)}
-                        style={{
-                          padding: '6px',
-                          background: '#ff6b6b',
-                          color: '#fff',
-                          border: 'none',
-                          borderRadius: '6px',
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center'
-                        }}
-                      >
-                        <Trash2 size={14} />
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  }
-}
