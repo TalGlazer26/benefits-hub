@@ -177,7 +177,7 @@ export default function App() {
           </div>
 
           {/* Content - Main Area */}
-          <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 2, width: '100%', marginTop: '3rem' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 2, width: '100%', marginTop: '4rem' }}>
             {/* Country Flag + Name */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.5rem', fontSize: '18px', fontWeight: 600, color: '#fff' }}>
               <img src="/il flag.png" alt="Israel flag" style={{ height: '32px' }} />
