@@ -140,41 +140,36 @@ export default function App() {
       <div style={{ minHeight: '100vh', background: '#fafaf8', color: '#000' }}>
         {/* Banner Section */}
         <div style={{
-          background: 'linear-gradient(135deg, #fee000 0%, #fee000 100%)',
-          padding: '3rem 2rem',
+          backgroundImage: 'url(/banner-top.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          padding: '4rem 2rem',
           position: 'relative',
-          overflow: 'hidden'
+          minHeight: '300px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center'
         }}>
-          {/* Icon Pattern Background */}
+          {/* Overlay */}
           <div style={{
             position: 'absolute',
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
-            opacity: 0.15,
-            fontSize: '3rem',
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignContent: 'center',
-            overflow: 'hidden'
-          }}>
-            {Array.from({ length: 20 }).map((_, i) => (
-              <div key={i} style={{ width: '20%', textAlign: 'center', padding: '10px' }}>
-                {i % 3 === 0 ? '❤️' : i % 3 === 1 ? '👍' : '😊'}
-              </div>
-            ))}
-          </div>
+            background: 'rgba(0,0,0,0.3)',
+            zIndex: 1
+          }} />
 
           {/* Content */}
-          <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 2, width: '100%' }}>
             {/* Logo */}
-            <img src="/logo.png" alt="Personetics" style={{ height: '40px', marginBottom: '1.5rem' }} />
+            <img src="/logo.png" alt="Personetics" style={{ height: '60px', marginBottom: '2rem', display: 'block' }} />
             
-            <h2 style={{ fontSize: '28px', fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
+            <h2 style={{ fontSize: '32px', fontWeight: 700, margin: '0 0 1rem', color: '#fff' }}>
               Welcome to your Benefits.
             </h2>
-            <p style={{ fontSize: '16px', color: '#333', margin: 0 }}>
+            <p style={{ fontSize: '18px', color: '#fff', margin: 0, opacity: 0.95 }}>
               You have {items.length} active benefits and policies available.
             </p>
           </div>
