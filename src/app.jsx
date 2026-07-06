@@ -159,39 +159,33 @@ export default function App() {
 
     return (
       <div style={{ minHeight: '100vh', background: '#fafaf8', color: '#000' }}>
-        {/* Top Navigation Bar */}
-        <div style={{
-          background: '#fee000',
-          padding: '1rem 2rem',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <img src="/Logo.png" alt="Personetics" style={{ height: '32px' }} />
-        </div>
-
         {/* Banner Section */}
         <div style={{
           backgroundImage: 'url(/Banner.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          padding: '3rem 2rem 4rem 2rem',
+          padding: '2rem 2rem 4rem 2rem',
           position: 'relative',
           minHeight: '350px',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'flex-start'
+          justifyContent: 'space-between'
         }}>
-          {/* Content */}
+          {/* Logo - Top Right */}
+          <div style={{ alignSelf: 'flex-end' }}>
+            <img src="/Logo.png" alt="Personetics" style={{ height: '40px' }} />
+          </div>
+
+          {/* Content - Main Area */}
           <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 2, width: '100%' }}>
             {/* Country Flag + Name */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2rem', fontSize: '16px', fontWeight: 600, color: '#fff' }}>
-              <img src="/il flag.png" alt="Israel flag" style={{ height: '28px' }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.5rem', fontSize: '18px', fontWeight: 600, color: '#fff' }}>
+              <img src="/il flag.png" alt="Israel flag" style={{ height: '32px' }} />
               <span>{content.countryName}</span>
             </div>
 
             {/* Main Title */}
-            <h2 style={{ fontSize: `${content.mainTitleSize}px`, fontWeight: 700, margin: '0 0 1.5rem', color: '#fff', letterSpacing: '-1px' }}>
+            <h2 style={{ fontSize: `${content.mainTitleSize}px`, fontWeight: 700, margin: '0 0 0.5rem', color: '#fff', letterSpacing: '-1px' }}>
               {content.mainTitle}
             </h2>
 
