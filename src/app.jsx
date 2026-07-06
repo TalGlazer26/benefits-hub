@@ -7,6 +7,18 @@ export default function App() {
   const [adminMode, setAdminMode] = useState(false);
   const [adminPassword, setAdminPassword] = useState('');
   
+  // Editable Content
+  const [content, setContent] = useState({
+    mainTitle: 'IL Benefits & Policies Hub',
+    benefitsTitle: 'Benefits',
+    benefitsSubtitle: 'Your personal wellbeing & rewards',
+    policiesTitle: 'Policies',
+    policiesSubtitle: 'Guidelines, handbooks & company policies'
+  });
+
+  const [editingContent, setEditingContent] = useState(false);
+  const [tempContent, setTempContent] = useState(content);
+  
   const [items, setItems] = useState([
     { 
       id: 1, 
@@ -121,6 +133,11 @@ export default function App() {
     setItems(items.filter(i => i.id !== id));
   };
 
+  const handleSaveContent = () => {
+    setContent(tempContent);
+    setEditingContent(false);
+  };
+
   const handleAdminAccess = () => {
     if (adminPassword === 'admin123') {
       setAdminMode(true);
@@ -150,24 +167,13 @@ export default function App() {
           flexDirection: 'column',
           justifyContent: 'center'
         }}>
-          {/* Overlay */}
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(0,0,0,0.3)',
-            zIndex: 1
-          }} />
-
           {/* Content */}
           <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 2, width: '100%' }}>
             {/* Logo */}
-            <img src="/Logo.png" alt="Personetics" style={{ height: '60px', marginBottom: '2rem', display: 'block' }} />
+            <img src="/Logo.png" alt="Personetics" style={{ height: '120px', marginBottom: '2rem', display: 'block' }} />
             
             <h2 style={{ fontSize: '32px', fontWeight: 700, margin: '0 0 1rem', color: '#fff' }}>
-              Welcome to your Benefits.
+              {content.mainTitle}
             </h2>
             <p style={{ fontSize: '18px', color: '#fff', margin: 0, opacity: 0.95 }}>
               You have {items.length} active benefits and policies available.
@@ -176,14 +182,14 @@ export default function App() {
         </div>
 
         {/* Main Content */}
-        <div style={{ padding: '3rem 2rem' }}>
+        <div style={{ padding: '3rem 2rem', background: 'linear-gradient(180deg, #fee000 0%, #fef5d9 100%)' }}>
           {/* Benefits Section */}
           <div style={{ maxWidth: '1200px', margin: '0 auto', marginBottom: '4rem' }}>
             <h3 style={{ fontSize: '20px', fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
-              Benefits
+              {content.benefitsTitle}
             </h3>
             <p style={{ fontSize: '14px', color: '#666', margin: '0 0 2rem' }}>
-              Your personal wellbeing & rewards
+              {content.benefitsSubtitle}
             </p>
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px' }}>
@@ -236,10 +242,10 @@ export default function App() {
           {/* Policies Section */}
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <h3 style={{ fontSize: '20px', fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
-              Policies
+              {content.policiesTitle}
             </h3>
             <p style={{ fontSize: '14px', color: '#666', margin: '0 0 2rem' }}>
-              Guidelines, handbooks & company policies
+              {content.policiesSubtitle}
             </p>
             
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px', marginBottom: '3rem' }}>
@@ -449,6 +455,185 @@ export default function App() {
             >
               Logout
             </button>
+          </div>
+
+          {/* Edit Content */}
+          <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', border: '2px solid #fee000', marginBottom: '2rem', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+              <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: '#000' }}>
+                Edit Content
+              </h3>
+              {!editingContent && (
+                <button
+                  onClick={() => {
+                    setEditingContent(true);
+                    setTempContent(content);
+                  }}
+                  style={{
+                    padding: '6px 12px',
+                    background: '#fee000',
+                    color: '#000',
+                    border: 'none',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontWeight: 600,
+                    fontSize: '13px'
+                  }}
+                >
+                  <Edit2 size={14} style={{ display: 'inline', marginRight: '4px' }} />
+                  Edit
+                </button>
+              )}
+            </div>
+
+            {editingContent ? (
+              <div style={{ display: 'grid', gap: '12px' }}>
+                <div>
+                  <label style={{ fontSize: '12px', fontWeight: 700, color: '#000', display: 'block', marginBottom: '4px' }}>
+                    Main Title
+                  </label>
+                  <input
+                    type="text"
+                    value={tempContent.mainTitle}
+                    onChange={(e) => setTempContent({ ...tempContent, mainTitle: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      border: '2px solid #fee000',
+                      borderRadius: '8px',
+                      background: '#fafaf8',
+                      color: '#000',
+                      fontSize: '14px',
+                      boxSizing: 'border-box'
+                    }}
+                  />
+                </div>
+                <div>
+                  <label style={{ fontSize: '12px', fontWeight: 700, color: '#000', display: 'block', marginBottom: '4px' }}>
+                    Benefits Title
+                  </label>
+                  <input
+                    type="text"
+                    value={tempContent.benefitsTitle}
+                    onChange={(e) => setTempContent({ ...tempContent, benefitsTitle: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      border: '2px solid #fee000',
+                      borderRadius: '8px',
+                      background: '#fafaf8',
+                      color: '#000',
+                      fontSize: '14px',
+                      boxSizing: 'border-box'
+                    }}
+                  />
+                </div>
+                <div>
+                  <label style={{ fontSize: '12px', fontWeight: 700, color: '#000', display: 'block', marginBottom: '4px' }}>
+                    Benefits Subtitle
+                  </label>
+                  <input
+                    type="text"
+                    value={tempContent.benefitsSubtitle}
+                    onChange={(e) => setTempContent({ ...tempContent, benefitsSubtitle: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      border: '2px solid #fee000',
+                      borderRadius: '8px',
+                      background: '#fafaf8',
+                      color: '#000',
+                      fontSize: '14px',
+                      boxSizing: 'border-box'
+                    }}
+                  />
+                </div>
+                <div>
+                  <label style={{ fontSize: '12px', fontWeight: 700, color: '#000', display: 'block', marginBottom: '4px' }}>
+                    Policies Title
+                  </label>
+                  <input
+                    type="text"
+                    value={tempContent.policiesTitle}
+                    onChange={(e) => setTempContent({ ...tempContent, policiesTitle: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      border: '2px solid #fee000',
+                      borderRadius: '8px',
+                      background: '#fafaf8',
+                      color: '#000',
+                      fontSize: '14px',
+                      boxSizing: 'border-box'
+                    }}
+                  />
+                </div>
+                <div>
+                  <label style={{ fontSize: '12px', fontWeight: 700, color: '#000', display: 'block', marginBottom: '4px' }}>
+                    Policies Subtitle
+                  </label>
+                  <input
+                    type="text"
+                    value={tempContent.policiesSubtitle}
+                    onChange={(e) => setTempContent({ ...tempContent, policiesSubtitle: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      border: '2px solid #fee000',
+                      borderRadius: '8px',
+                      background: '#fafaf8',
+                      color: '#000',
+                      fontSize: '14px',
+                      boxSizing: 'border-box'
+                    }}
+                  />
+                </div>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button
+                    onClick={handleSaveContent}
+                    style={{
+                      flex: 1,
+                      padding: '8px',
+                      background: '#6be084',
+                      color: '#000',
+                      border: 'none',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      fontWeight: 600,
+                      fontSize: '13px'
+                    }}
+                  >
+                    <Check size={14} style={{ display: 'inline', marginRight: '4px' }} />
+                    Save
+                  </button>
+                  <button
+                    onClick={() => setEditingContent(false)}
+                    style={{
+                      flex: 1,
+                      padding: '8px',
+                      background: '#f5f5f5',
+                      color: '#000',
+                      border: '2px solid #fee000',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      fontWeight: 600,
+                      fontSize: '13px'
+                    }}
+                  >
+                    <X size={14} style={{ display: 'inline', marginRight: '4px' }} />
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div style={{ display: 'grid', gap: '8px' }}>
+                <div><strong>Main Title:</strong> {content.mainTitle}</div>
+                <div><strong>Benefits Title:</strong> {content.benefitsTitle}</div>
+                <div><strong>Benefits Subtitle:</strong> {content.benefitsSubtitle}</div>
+                <div><strong>Policies Title:</strong> {content.policiesTitle}</div>
+                <div><strong>Policies Subtitle:</strong> {content.policiesSubtitle}</div>
+              </div>
+            )}
           </div>
 
           {/* Add Item */}
