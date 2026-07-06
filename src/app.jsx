@@ -9,10 +9,14 @@ export default function App() {
   
   // Editable Content
   const [content, setContent] = useState({
+    countryName: 'Israel',
     mainTitle: 'IL Benefits & Policies Hub',
+    mainTitleSize: '48',
     benefitsTitle: 'Benefits',
+    benefitsTitleSize: '24',
     benefitsSubtitle: 'Your personal wellbeing & rewards',
     policiesTitle: 'Policies',
+    policiesTitleSize: '24',
     policiesSubtitle: 'Guidelines, handbooks & company policies'
   });
 
@@ -155,6 +159,21 @@ export default function App() {
 
     return (
       <div style={{ minHeight: '100vh', background: '#fafaf8', color: '#000' }}>
+        {/* Top Navigation Bar */}
+        <div style={{
+          background: '#000',
+          padding: '1rem 2rem',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <img src="/Logo.png" alt="Personetics" style={{ height: '32px' }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#fff', fontWeight: 600 }}>
+            <img src="/il flag.png" alt="Israel flag" style={{ height: '24px', marginRight: '4px' }} />
+            {content.countryName}
+          </div>
+        </div>
+
         {/* Banner Section */}
         <div style={{
           backgroundImage: 'url(/Banner.jpg)',
@@ -169,10 +188,7 @@ export default function App() {
         }}>
           {/* Content */}
           <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 2, width: '100%' }}>
-            {/* Logo */}
-            <img src="/Logo.png" alt="Personetics" style={{ height: '120px', marginBottom: '2rem', display: 'block' }} />
-            
-            <h2 style={{ fontSize: '32px', fontWeight: 700, margin: '0 0 1rem', color: '#fff' }}>
+            <h2 style={{ fontSize: `${content.mainTitleSize}px`, fontWeight: 700, margin: '0 0 1rem', color: '#fff', letterSpacing: '-1px' }}>
               {content.mainTitle}
             </h2>
             <p style={{ fontSize: '18px', color: '#fff', margin: 0, opacity: 0.95 }}>
@@ -185,7 +201,7 @@ export default function App() {
         <div style={{ padding: '3rem 2rem', background: 'linear-gradient(180deg, #fee000 0%, #fef5d9 100%)' }}>
           {/* Benefits Section */}
           <div style={{ maxWidth: '1200px', margin: '0 auto', marginBottom: '4rem' }}>
-            <h3 style={{ fontSize: '20px', fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
+            <h3 style={{ fontSize: `${content.benefitsTitleSize}px`, fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
               {content.benefitsTitle}
             </h3>
             <p style={{ fontSize: '14px', color: '#666', margin: '0 0 2rem' }}>
@@ -241,7 +257,7 @@ export default function App() {
 
           {/* Policies Section */}
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <h3 style={{ fontSize: '20px', fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
+            <h3 style={{ fontSize: `${content.policiesTitleSize}px`, fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
               {content.policiesTitle}
             </h3>
             <p style={{ fontSize: '14px', color: '#666', margin: '0 0 2rem' }}>
@@ -461,7 +477,7 @@ export default function App() {
           <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', border: '2px solid #fee000', marginBottom: '2rem', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
               <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: '#000' }}>
-                Edit Content
+                Edit Content & Design
               </h3>
               {!editingContent && (
                 <button
@@ -490,6 +506,26 @@ export default function App() {
               <div style={{ display: 'grid', gap: '12px' }}>
                 <div>
                   <label style={{ fontSize: '12px', fontWeight: 700, color: '#000', display: 'block', marginBottom: '4px' }}>
+                    Country Name
+                  </label>
+                  <input
+                    type="text"
+                    value={tempContent.countryName}
+                    onChange={(e) => setTempContent({ ...tempContent, countryName: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      border: '2px solid #fee000',
+                      borderRadius: '8px',
+                      background: '#fafaf8',
+                      color: '#000',
+                      fontSize: '14px',
+                      boxSizing: 'border-box'
+                    }}
+                  />
+                </div>
+                <div>
+                  <label style={{ fontSize: '12px', fontWeight: 700, color: '#000', display: 'block', marginBottom: '4px' }}>
                     Main Title
                   </label>
                   <input
@@ -510,12 +546,52 @@ export default function App() {
                 </div>
                 <div>
                   <label style={{ fontSize: '12px', fontWeight: 700, color: '#000', display: 'block', marginBottom: '4px' }}>
+                    Main Title Size (px)
+                  </label>
+                  <input
+                    type="number"
+                    value={tempContent.mainTitleSize}
+                    onChange={(e) => setTempContent({ ...tempContent, mainTitleSize: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      border: '2px solid #fee000',
+                      borderRadius: '8px',
+                      background: '#fafaf8',
+                      color: '#000',
+                      fontSize: '14px',
+                      boxSizing: 'border-box'
+                    }}
+                  />
+                </div>
+                <div>
+                  <label style={{ fontSize: '12px', fontWeight: 700, color: '#000', display: 'block', marginBottom: '4px' }}>
                     Benefits Title
                   </label>
                   <input
                     type="text"
                     value={tempContent.benefitsTitle}
                     onChange={(e) => setTempContent({ ...tempContent, benefitsTitle: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      border: '2px solid #fee000',
+                      borderRadius: '8px',
+                      background: '#fafaf8',
+                      color: '#000',
+                      fontSize: '14px',
+                      boxSizing: 'border-box'
+                    }}
+                  />
+                </div>
+                <div>
+                  <label style={{ fontSize: '12px', fontWeight: 700, color: '#000', display: 'block', marginBottom: '4px' }}>
+                    Benefits Title Size (px)
+                  </label>
+                  <input
+                    type="number"
+                    value={tempContent.benefitsTitleSize}
+                    onChange={(e) => setTempContent({ ...tempContent, benefitsTitleSize: e.target.value })}
                     style={{
                       width: '100%',
                       padding: '10px',
@@ -556,6 +632,26 @@ export default function App() {
                     type="text"
                     value={tempContent.policiesTitle}
                     onChange={(e) => setTempContent({ ...tempContent, policiesTitle: e.target.value })}
+                    style={{
+                      width: '100%',
+                      padding: '10px',
+                      border: '2px solid #fee000',
+                      borderRadius: '8px',
+                      background: '#fafaf8',
+                      color: '#000',
+                      fontSize: '14px',
+                      boxSizing: 'border-box'
+                    }}
+                  />
+                </div>
+                <div>
+                  <label style={{ fontSize: '12px', fontWeight: 700, color: '#000', display: 'block', marginBottom: '4px' }}>
+                    Policies Title Size (px)
+                  </label>
+                  <input
+                    type="number"
+                    value={tempContent.policiesTitleSize}
+                    onChange={(e) => setTempContent({ ...tempContent, policiesTitleSize: e.target.value })}
                     style={{
                       width: '100%',
                       padding: '10px',
@@ -627,10 +723,11 @@ export default function App() {
               </div>
             ) : (
               <div style={{ display: 'grid', gap: '8px' }}>
-                <div><strong>Main Title:</strong> {content.mainTitle}</div>
-                <div><strong>Benefits Title:</strong> {content.benefitsTitle}</div>
+                <div><strong>Country:</strong> {content.countryName}</div>
+                <div><strong>Main Title:</strong> {content.mainTitle} ({content.mainTitleSize}px)</div>
+                <div><strong>Benefits Title:</strong> {content.benefitsTitle} ({content.benefitsTitleSize}px)</div>
                 <div><strong>Benefits Subtitle:</strong> {content.benefitsSubtitle}</div>
-                <div><strong>Policies Title:</strong> {content.policiesTitle}</div>
+                <div><strong>Policies Title:</strong> {content.policiesTitle} ({content.policiesTitleSize}px)</div>
                 <div><strong>Policies Subtitle:</strong> {content.policiesSubtitle}</div>
               </div>
             )}
