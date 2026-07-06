@@ -199,7 +199,7 @@ export default function App() {
         </div>
 
         {/* Main Content */}
-        <div style={{ padding: '3rem 2rem', background: 'linear-gradient(180deg, #fee000 0%, #fef5d9 100%)' }}>
+        <div style={{ padding: '1rem 2rem', background: 'linear-gradient(180deg, #fee000 0%, #fef5d9 100%)' }}>
           {/* Benefits Section */}
           <div style={{ maxWidth: '1200px', margin: '0 auto', marginBottom: '4rem' }}>
             <h3 style={{ fontSize: `${content.benefitsTitleSize}px`, fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
