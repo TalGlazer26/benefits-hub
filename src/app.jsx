@@ -10,14 +10,13 @@ export default function App() {
   // Editable Content
   const [content, setContent] = useState({
     countryName: 'Israel',
-    countryNameSize: '24',
-    mainTitle: 'Welcome to your benefits & policies hub',
+    mainTitle: 'IL Benefits & Policies Hub',
     mainTitleSize: '60',
     benefitsTitle: 'Benefits',
-    benefitsTitleSize: '24',
+    benefitsTitleSize: '30',
     benefitsSubtitle: 'Your personal wellbeing & rewards',
     policiesTitle: 'Policies',
-    policiesTitleSize: '24',
+    policiesTitleSize: '30',
     policiesSubtitle: 'Guidelines, handbooks & company policies'
   });
 
