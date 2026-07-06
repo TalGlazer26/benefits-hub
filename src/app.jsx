@@ -30,7 +30,7 @@ export default function App() {
       category: 'Time Off', 
       title: 'Time Off & Leave', 
       description: 'Time to rest & recharge',
-      details: 'Time to recharge! Our Time-Off Policy brings together everything you need to know about taking time away from work. From vacation and sick leave to special paid leave for life's meaningful moments.',
+      details: 'Time to recharge!',
       color: '#6be084'
     },
     { 
