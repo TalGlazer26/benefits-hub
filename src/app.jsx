@@ -13,10 +13,10 @@ export default function App() {
     mainTitle: 'IL Benefits & Policies Hub',
     mainTitleSize: '60',
     benefitsTitle: 'Benefits',
-    benefitsTitleSize: '30',
+    benefitsTitleSize: '24',
     benefitsSubtitle: 'Your personal wellbeing & rewards',
     policiesTitle: 'Policies',
-    policiesTitleSize: '30',
+    policiesTitleSize: '24',
     policiesSubtitle: 'Guidelines, handbooks & company policies'
   });
 
@@ -27,32 +27,14 @@ export default function App() {
     { 
       id: 1, 
       type: 'benefit',
-      category: 'Health', 
-      title: 'Medical Insurance', 
-      description: 'Coverage for you and your family',
-      details: 'Comprehensive medical insurance coverage for you and your dependents. Includes annual checkups, emergency care, and prescription medications.',
-      color: '#6be084'
-    },
-    { 
-      id: 2, 
-      type: 'benefit',
-      category: 'Health', 
-      title: 'Dental Plan', 
-      description: 'Annual dental checkups and procedures',
-      details: 'Annual dental checkups and basic procedures covered. Includes cleanings, fillings, and root canals up to 80% coverage.',
-      color: '#19bbee'
-    },
-    { 
-      id: 3, 
-      type: 'benefit',
       category: 'Time Off', 
       title: 'Time Off & Leave', 
       description: 'Time to rest & recharge',
-      details: '20 days of paid vacation annually. Plus flexible work arrangements and mental health days.',
+      details: 'Some deatile about your paid vacation annually. Plus flexible work arrangements and mental health days.',
       color: '#fee000'
     },
     { 
-      id: 4, 
+      id: 2, 
       type: 'benefit',
       category: 'Perks', 
       title: 'Maternity & Paternity', 
@@ -61,16 +43,7 @@ export default function App() {
       color: '#d9d9d9'
     },
     { 
-      id: 5, 
-      type: 'benefit',
-      category: 'Perks', 
-      title: '₪350 Monthly Wellness', 
-      description: 'Monthly allowance for health & wellness',
-      details: 'Monthly allowance to invest in your health and wellness. Use for gym, yoga, meditation apps, or wellness equipment.',
-      color: '#6be084'
-    },
-    { 
-      id: 6, 
+      id: 3, 
       type: 'benefit',
       category: 'Perks', 
       title: '₪1000 Monthly Food', 
@@ -79,7 +52,7 @@ export default function App() {
       color: '#19bbee'
     },
     { 
-      id: 7, 
+      id: 4, 
       type: 'policy',
       category: 'Global',
       title: 'Global Relocation Policy', 
@@ -88,13 +61,40 @@ export default function App() {
       color: '#fee000'
     },
     { 
-      id: 8, 
+      id: 5, 
       type: 'policy',
       category: 'Travel',
       title: 'Travel Policy', 
       description: 'Rules and reimbursements for business travel',
       details: 'Rules and reimbursements for business travel. Economy flights, hotel reimbursement up to ₪400/night.',
       color: '#d9d9d9'
+    },
+    { 
+      id: 6, 
+      type: 'policy',
+      category: 'IT',
+      title: 'IT Home Equipment Policy', 
+      description: 'How to report work-related expenses',
+      details: 'How to report and get reimbursed for work-related expenses. Submit within 30 days with receipts.',
+      color: '#6be084'
+    },
+    { 
+      id: 7, 
+      type: 'policy',
+      category: 'Expenses',
+      title: 'Expense Reporting Policy', 
+      description: 'How to report work-related expenses',
+      details: 'How to report and get reimbursed for work-related expenses. Submit within 30 days with receipts.',
+      color: '#6be084'
+    },
+    { 
+      id: 8, 
+      type: 'policy',
+      category: 'Expenses',
+      title: 'Expense Reporting Policy', 
+      description: 'How to report work-related expenses',
+      details: 'How to report and get reimbursed for work-related expenses. Submit within 30 days with receipts.',
+      color: '#6be084'
     },
     { 
       id: 9, 
