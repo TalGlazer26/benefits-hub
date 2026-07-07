@@ -244,14 +244,9 @@ export default function App() {
       position: 'fixed',
       bottom: '2rem',
       right: '2rem',
-      zIndex: 1000,
-      backgroundColor: 'rgba(255, 255, 255, 0.95)',
-      padding: '12px',
-      borderRadius: '12px',
-      boxShadow: '0 4px 16px rgba(0, 0, 0, 0.12)',
-      backdropFilter: 'blur(10px)'
+      zIndex: 1000
     }}>
-      <img src="/Logo.png" alt="Personetics" style={{ height: '50px', display: 'block' }} />
+      <img src="/Logo.png" alt="Personetics" style={{ height: '35px', display: 'block' }} />
     </div>
   );
 
@@ -299,125 +294,134 @@ export default function App() {
           </div>
         </div>
 
-        {/* Main Content with White Fade Background */}
+        {/* Main Content - Yellow Background */}
         <div style={{ 
           padding: '4rem 2rem', 
-          background: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, rgba(255, 255, 255, 0) 100%)',
-          position: 'relative'
+          background: 'linear-gradient(180deg, #fee000 0%, #fef5d9 100%)'
         }}>
-          {/* Benefits Section */}
-          <div style={{ maxWidth: '1200px', margin: '0 auto', marginBottom: '4rem' }}>
-            <h3 style={{ fontSize: `${content.benefitsTitleSize}px`, fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
-              {content.benefitsTitle}
-            </h3>
-            <p style={{ fontSize: '14px', color: '#666', margin: '0 0 2rem' }}>
-              {content.benefitsSubtitle}
-            </p>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px' }}>
-              {benefits.map(item => (
-                <div
-                  key={item.id}
-                  onClick={() => handleViewDetail(item)}
-                  style={{
-                    background: item.color,
-                    borderRadius: '16px',
-                    padding: '32px 24px',
-                    cursor: 'pointer',
-                    border: '2px solid transparent',
-                    transition: 'all 0.3s ease',
-                    minHeight: '240px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)';
-                  }}
-                >
-                  <div>
-                    <span style={{ fontSize: '11px', fontWeight: 700, color: '#000', letterSpacing: '1px', opacity: 0.7 }}>
-                      {item.category.toUpperCase()}
-                    </span>
-                    <div style={{ width: '50px', height: '3px', background: '#000', margin: '12px 0', opacity: 0.3 }} />
-                    <h4 style={{ fontSize: '20px', fontWeight: 700, margin: '16px 0 12px', color: '#000' }}>
-                      {item.title}
-                    </h4>
-                    <p style={{ fontSize: '15px', color: '#000', margin: 0, opacity: 0.8, lineHeight: '1.5' }}>
-                      {item.description}
-                    </p>
+          {/* White Container עדין */}
+          <div style={{
+            maxWidth: '1200px',
+            margin: '0 auto',
+            background: 'rgba(255, 255, 255, 0.7)',
+            borderRadius: '24px',
+            padding: '3rem 2rem',
+            boxShadow: '0 4px 16px rgba(0,0,0,0.06)',
+            backdropFilter: 'blur(8px)',
+            border: '1px solid rgba(255, 255, 255, 0.5)'
+          }}>
+            {/* Benefits Section */}
+            <div style={{ marginBottom: '4rem' }}>
+              <h3 style={{ fontSize: `${content.benefitsTitleSize}px`, fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
+                {content.benefitsTitle}
+              </h3>
+              <p style={{ fontSize: '14px', color: '#666', margin: '0 0 2rem' }}>
+                {content.benefitsSubtitle}
+              </p>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px' }}>
+                {benefits.map(item => (
+                  <div
+                    key={item.id}
+                    onClick={() => handleViewDetail(item)}
+                    style={{
+                      background: item.color,
+                      borderRadius: '16px',
+                      padding: '32px 24px',
+                      cursor: 'pointer',
+                      border: '2px solid transparent',
+                      transition: 'all 0.3s ease',
+                      minHeight: '240px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-4px)';
+                      e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)';
+                    }}
+                  >
+                    <div>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#000', letterSpacing: '1px', opacity: 0.7 }}>
+                        {item.category.toUpperCase()}
+                      </span>
+                      <div style={{ width: '50px', height: '3px', background: '#000', margin: '12px 0', opacity: 0.3 }} />
+                      <h4 style={{ fontSize: '20px', fontWeight: 700, margin: '16px 0 12px', color: '#000' }}>
+                        {item.title}
+                      </h4>
+                      <p style={{ fontSize: '15px', color: '#000', margin: 0, opacity: 0.8, lineHeight: '1.5' }}>
+                        {item.description}
+                      </p>
+                    </div>
+                    <button onClick={() => handleViewDetail(item)} style={{ fontSize: '14px', color: '#000', background: 'none', border: 'none', textDecoration: 'none', fontWeight: 700, marginTop: '16px', cursor: 'pointer', padding: 0, textAlign: 'left', opacity: 0.7 }}>
+                      View details →
+                    </button>
                   </div>
-                  <button onClick={() => handleViewDetail(item)} style={{ fontSize: '14px', color: '#000', background: 'none', border: 'none', textDecoration: 'none', fontWeight: 700, marginTop: '16px', cursor: 'pointer', padding: 0, textAlign: 'left', opacity: 0.7 }}>
-                    View details →
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Policies Section */}
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <h3 style={{ fontSize: `${content.policiesTitleSize}px`, fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
-              {content.policiesTitle}
-            </h3>
-            <p style={{ fontSize: '14px', color: '#666', margin: '0 0 2rem' }}>
-              {content.policiesSubtitle}
-            </p>
-            
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px', marginBottom: '3rem' }}>
-              {policies.map(item => (
-                <div
-                  key={item.id}
-                  onClick={() => handleViewDetail(item)}
-                  style={{
-                    background: item.color,
-                    borderRadius: '16px',
-                    padding: '32px 24px',
-                    cursor: 'pointer',
-                    border: '2px solid transparent',
-                    transition: 'all 0.3s ease',
-                    minHeight: '240px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
-                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)';
-                  }}
-                >
-                  <div>
-                    <span style={{ fontSize: '11px', fontWeight: 700, color: '#000', letterSpacing: '1px', opacity: 0.7 }}>
-                      {item.category.toUpperCase()}
-                    </span>
-                    <div style={{ width: '50px', height: '3px', background: '#000', margin: '12px 0', opacity: 0.3 }} />
-                    <h4 style={{ fontSize: '20px', fontWeight: 700, margin: '16px 0 12px', color: '#000' }}>
-                      {item.title}
-                    </h4>
-                    <p style={{ fontSize: '15px', color: '#000', margin: 0, opacity: 0.8, lineHeight: '1.5' }}>
-                      {item.description}
-                    </p>
-                  </div>
-                  <button onClick={() => handleViewDetail(item)} style={{ fontSize: '14px', color: '#000', background: 'none', border: 'none', textDecoration: 'none', fontWeight: 700, marginTop: '16px', cursor: 'pointer', padding: 0, textAlign: 'left', opacity: 0.7 }}>
-                    View details →
-                  </button>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
-            {/* Admin Button */}
-            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            {/* Policies Section */}
+            <div>
+              <h3 style={{ fontSize: `${content.policiesTitleSize}px`, fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
+                {content.policiesTitle}
+              </h3>
+              <p style={{ fontSize: '14px', color: '#666', margin: '0 0 2rem' }}>
+                {content.policiesSubtitle}
+              </p>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '24px', marginBottom: '3rem' }}>
+                {policies.map(item => (
+                  <div
+                    key={item.id}
+                    onClick={() => handleViewDetail(item)}
+                    style={{
+                      background: item.color,
+                      borderRadius: '16px',
+                      padding: '32px 24px',
+                      cursor: 'pointer',
+                      border: '2px solid transparent',
+                      transition: 'all 0.3s ease',
+                      minHeight: '240px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-4px)';
+                      e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.08)';
+                    }}
+                  >
+                    <div>
+                      <span style={{ fontSize: '11px', fontWeight: 700, color: '#000', letterSpacing: '1px', opacity: 0.7 }}>
+                        {item.category.toUpperCase()}
+                      </span>
+                      <div style={{ width: '50px', height: '3px', background: '#000', margin: '12px 0', opacity: 0.3 }} />
+                      <h4 style={{ fontSize: '20px', fontWeight: 700, margin: '16px 0 12px', color: '#000' }}>
+                        {item.title}
+                      </h4>
+                      <p style={{ fontSize: '15px', color: '#000', margin: 0, opacity: 0.8, lineHeight: '1.5' }}>
+                        {item.description}
+                      </p>
+                    </div>
+                    <button onClick={() => handleViewDetail(item)} style={{ fontSize: '14px', color: '#000', background: 'none', border: 'none', textDecoration: 'none', fontWeight: 700, marginTop: '16px', cursor: 'pointer', padding: 0, textAlign: 'left', opacity: 0.7 }}>
+                      View details →
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              {/* Admin Button */}
               <button
                 onClick={() => setView('admin-login')}
                 style={{
