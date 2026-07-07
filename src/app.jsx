@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ChevronLeft, Plus, Edit2, Trash2, Check, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ChevronLeft, Plus, Edit2, Trash2, Check, X, Download, Upload } from 'lucide-react';
 
 export default function App() {
   const [view, setView] = useState('home');
@@ -23,7 +23,7 @@ export default function App() {
   const [editingContent, setEditingContent] = useState(false);
   const [tempContent, setTempContent] = useState(content);
   
-  const [items, setItems] = useState([
+  const defaultItems = [
     { 
       id: 1, 
       type: 'policy',
@@ -87,29 +87,53 @@ export default function App() {
       details: 'How to report and get reimbursed for work-related expenses. Submit within 30 days with receipts.',
       color: '#6be084'
     },
-    { 
-      id: 8, 
-      type: 'policy',
-      category: 'Expenses',
-      title: 'Expense Reporting Policy', 
-      description: 'How to report work-related expenses',
-      details: 'How to report and get reimbursed for work-related expenses. Submit within 30 days with receipts.',
-      color: '#6be084'
-    },
-    { 
-      id: 9, 
-      type: 'policy',
-      category: 'Expenses',
-      title: 'Expense Reporting Policy', 
-      description: 'How to report work-related expenses',
-      details: 'How to report and get reimbursed for work-related expenses. Submit within 30 days with receipts.',
-      color: '#6be084'
-    },
-  ]);
+  ];
 
+  const [items, setItems] = useState(defaultItems);
   const [newItem, setNewItem] = useState({ type: 'benefit', category: '', title: '', description: '', details: '', color: '#19bbee' });
   const [editingId, setEditingId] = useState(null);
   const [editData, setEditData] = useState({});
+
+  // ✅ Load from storage on mount
+  useEffect(() => {
+    try {
+      const savedItems = window.storage?.get('benefits_items');
+      if (savedItems) {
+        setItems(JSON.parse(savedItems));
+      }
+    } catch (e) {
+      console.log('No saved items yet');
+    }
+
+    try {
+      const savedContent = window.storage?.get('benefits_content');
+      if (savedContent) {
+        setContent(JSON.parse(savedContent));
+      }
+    } catch (e) {
+      console.log('No saved content yet');
+    }
+  }, []);
+
+  // ✅ Save to storage whenever items change
+  const updateItems = (newItems) => {
+    setItems(newItems);
+    try {
+      window.storage?.set('benefits_items', JSON.stringify(newItems));
+    } catch (e) {
+      console.log('Could not save items');
+    }
+  };
+
+  // ✅ Save to storage whenever content changes
+  const updateContent = (newContent) => {
+    setContent(newContent);
+    try {
+      window.storage?.set('benefits_content', JSON.stringify(newContent));
+    } catch (e) {
+      console.log('Could not save content');
+    }
+  };
 
   const handleViewDetail = (item) => {
     setSelectedItem(item);
@@ -118,7 +142,8 @@ export default function App() {
 
   const handleAddItem = () => {
     if (newItem.category && newItem.title && newItem.description) {
-      setItems([...items, { id: Date.now(), ...newItem }]);
+      const updatedItems = [...items, { id: Date.now(), ...newItem }];
+      updateItems(updatedItems);
       setNewItem({ type: 'benefit', category: '', title: '', description: '', details: '', color: '#19bbee' });
     }
   };
@@ -129,17 +154,78 @@ export default function App() {
   };
 
   const handleSaveEdit = () => {
-    setItems(items.map(i => i.id === editingId ? editData : i));
+    const updatedItems = items.map(i => i.id === editingId ? editData : i);
+    updateItems(updatedItems);
     setEditingId(null);
   };
 
   const handleDeleteItem = (id) => {
-    setItems(items.filter(i => i.id !== id));
+    const updatedItems = items.filter(i => i.id !== id);
+    updateItems(updatedItems);
   };
 
   const handleSaveContent = () => {
-    setContent(tempContent);
+    updateContent(tempContent);
     setEditingContent(false);
+  };
+
+  // ✅ Export data
+  const handleExport = () => {
+    const data = {
+      items,
+      content,
+      exportDate: new Date().toISOString()
+    };
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `benefits_hub_backup_${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // ✅ Import data
+  const handleImport = (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const data = JSON.parse(e.target?.result);
+        if (data.items && data.content) {
+          updateItems(data.items);
+          updateContent(data.content);
+          alert('✅ Data imported successfully!');
+        } else {
+          alert('❌ Invalid backup file');
+        }
+      } catch (error) {
+        alert('❌ Could not import file');
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  // ✅ Reset to defaults
+  const handleReset = () => {
+    if (window.confirm('Are you sure? This will reset all changes to defaults.')) {
+      updateItems(defaultItems);
+      updateContent({
+        countryName: 'Israel',
+        mainTitle: 'IL Benefits & Policies Hub',
+        mainTitleSize: '60',
+        benefitsTitle: 'Benefits',
+        benefitsTitleSize: '24',
+        benefitsSubtitle: 'Your personal wellbeing & rewards',
+        policiesTitle: 'Policies',
+        policiesTitleSize: '24',
+        policiesSubtitle: 'Guidelines, handbooks & company policies'
+      });
+      alert('✅ Reset to defaults!');
+    }
   };
 
   const handleAdminAccess = () => {
@@ -152,6 +238,23 @@ export default function App() {
     }
   };
 
+  // ============ FIXED LOGO COMPONENT ============
+  const FixedLogo = () => (
+    <div style={{
+      position: 'fixed',
+      bottom: '2rem',
+      right: '2rem',
+      zIndex: 1000,
+      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+      padding: '12px',
+      borderRadius: '12px',
+      boxShadow: '0 4px 16px rgba(0, 0, 0, 0.12)',
+      backdropFilter: 'blur(10px)'
+    }}>
+      <img src="/Logo.png" alt="Personetics" style={{ height: '50px', display: 'block' }} />
+    </div>
+  );
+
   // ============ HOME VIEW ============
   if (view === 'home' && !adminMode) {
     const benefits = items.filter(i => i.type === 'benefit');
@@ -159,6 +262,9 @@ export default function App() {
 
     return (
       <div style={{ minHeight: '100vh', background: '#fafaf8', color: '#000' }}>
+        {/* Fixed Logo */}
+        <FixedLogo />
+
         {/* Banner Section */}
         <div style={{
           backgroundImage: 'url(/Banner.jpg)',
@@ -170,11 +276,6 @@ export default function App() {
           display: 'flex',
           flexDirection: 'column'
         }}>
-          {/* Logo - Top Left */}
-          <div style={{ alignSelf: 'flex-start' }}>
-            <img src="/Logo.png" alt="Personetics" style={{ height: '40px' }} />
-          </div>
-
           {/* Spacer - pushes content down */}
           <div style={{ flex: 1 }} />
 
@@ -198,8 +299,12 @@ export default function App() {
           </div>
         </div>
 
-        {/* Main Content */}
-        <div style={{ padding: '1rem 2rem', background: 'linear-gradient(180deg, #fee000 0%, #fef5d9 100%)' }}>
+        {/* Main Content with White Fade Background */}
+        <div style={{ 
+          padding: '4rem 2rem', 
+          background: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 1) 85%, rgba(255, 255, 255, 0) 100%)',
+          position: 'relative'
+        }}>
           {/* Benefits Section */}
           <div style={{ maxWidth: '1200px', margin: '0 auto', marginBottom: '4rem' }}>
             <h3 style={{ fontSize: `${content.benefitsTitleSize}px`, fontWeight: 700, margin: '0 0 0.5rem', color: '#000' }}>
@@ -339,6 +444,9 @@ export default function App() {
   if (view === 'detail' && selectedItem) {
     return (
       <div style={{ minHeight: '100vh', background: '#fafaf8', color: '#000', padding: '2rem 1rem' }}>
+        {/* Fixed Logo */}
+        <FixedLogo />
+
         <div style={{ maxWidth: '900px', margin: '0 auto' }}>
           <button
             onClick={() => setView('home')}
@@ -387,6 +495,9 @@ export default function App() {
   if (view === 'admin-login') {
     return (
       <div style={{ minHeight: '100vh', background: '#fafaf8', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+        {/* Fixed Logo */}
+        <FixedLogo />
+
         <div style={{ background: '#fff', padding: '2rem', borderRadius: '16px', border: '2px solid #fee000', maxWidth: '400px', width: '100%', boxShadow: '0 8px 24px rgba(0,0,0,0.1)' }}>
           <h2 style={{ fontSize: '24px', fontWeight: 700, margin: '0 0 1.5rem', color: '#000' }}>
             Admin Access
@@ -453,6 +564,9 @@ export default function App() {
   if (view === 'admin' && adminMode) {
     return (
       <div style={{ minHeight: '100vh', background: '#fafaf8', color: '#000', padding: '2rem 1rem' }}>
+        {/* Fixed Logo */}
+        <FixedLogo />
+
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
             <h1 style={{ fontSize: '32px', fontWeight: 700, margin: 0, color: '#000' }}>
@@ -472,6 +586,73 @@ export default function App() {
             >
               Logout
             </button>
+          </div>
+
+          {/* Backup & Restore Section */}
+          <div style={{ background: '#fff', padding: '24px', borderRadius: '12px', border: '2px solid #fee000', marginBottom: '2rem', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}>
+            <h3 style={{ fontSize: '16px', fontWeight: 700, margin: '0 0 1.5rem', color: '#000' }}>
+              💾 Backup & Restore
+            </h3>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <button
+                onClick={handleExport}
+                style={{
+                  padding: '10px 16px',
+                  background: '#19bbee',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontWeight: 700,
+                  fontSize: '14px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+              >
+                <Download size={16} />
+                Export Data
+              </button>
+              
+              <label style={{
+                padding: '10px 16px',
+                background: '#6be084',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontWeight: 700,
+                fontSize: '14px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px'
+              }}>
+                <Upload size={16} />
+                Import Data
+                <input
+                  type="file"
+                  accept=".json"
+                  onChange={handleImport}
+                  style={{ display: 'none' }}
+                />
+              </label>
+
+              <button
+                onClick={handleReset}
+                style={{
+                  padding: '10px 16px',
+                  background: '#ff6b6b',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '8px',
+                  cursor: 'pointer',
+                  fontWeight: 700,
+                  fontSize: '14px'
+                }}
+              >
+                Reset to Defaults
+              </button>
+            </div>
           </div>
 
           {/* Edit Content */}
