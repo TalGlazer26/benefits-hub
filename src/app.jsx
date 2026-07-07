@@ -296,7 +296,7 @@ export default function App() {
 
         {/* Main Content - Yellow Background */}
         <div style={{ 
-          padding: '4rem 2rem', 
+          padding: '1rem 2rem 4rem 2rem',
           background: 'linear-gradient(180deg, #fee000 0%, #fef5d9 100%)'
         }}>
           {/* White Container עדין */}
