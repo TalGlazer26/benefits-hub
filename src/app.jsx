@@ -64,7 +64,9 @@ You have the flexibility to choose from three popular meal platforms: Cibus, Ten
 
 Your ₪1000 allowance is loaded on the 21st of each month and runs through the 20th of the following month. You can change your chosen platform up to twice per year if you'd like to switch things up.
 
-If you ever need help with your meal benefit account or have questions about your platform options, just reach out to our Employee Experience & Operations Team at Perso_Operations@personetics.com.`,
+If you ever need help with your meal benefit account or have questions about your platform options, just reach out to our Employee Experience & Operations Team at Perso_Operations@personetics.com.
+
+[Policy link]`,
   color: '#19bbee'
 },
     { 
