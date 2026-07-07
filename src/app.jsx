@@ -30,7 +30,11 @@ export default function App() {
       category: 'Time Off', 
       title: 'Time Off & Leave', 
       description: 'Time to rest & recharge',
-      details: 'Time to recharge!',
+      details: `We believe that taking time to rest, recharge, and spend time on what matters most is essential. That's why we offer generous time-off benefits for all our Israeli team members.
+
+You'll receive annual vacation days based on your employment terms, with the flexibility to carry over up to 12 days into the next year. Need to take time off before accruing enough days? No problem – we can work with you (up to 10 days with manager and HRBP approval).
+
+We also know life happens – so we've got you covered with paid sick leave, special days for weddings, parental support leave, and more. If you're ever unsure about what you're eligible for or have special circumstances, just reach out to your HRBP or Total Rewards team. We're here to help make it work for you.`,
       color: '#6be084'
     },
     { 
@@ -486,7 +490,14 @@ export default function App() {
               {selectedItem.title}
             </h1>
             
-            <p style={{ fontSize: '18px', color: '#000', margin: 0, lineHeight: '1.8', opacity: 0.9 }}>
+            <p style={{ 
+              fontSize: '18px', 
+              color: '#000', 
+              margin: 0, 
+              lineHeight: '1.8', 
+              opacity: 0.9,
+              whiteSpace: 'pre-wrap'
+            }}>
               {selectedItem.details}
             </p>
           </div>
