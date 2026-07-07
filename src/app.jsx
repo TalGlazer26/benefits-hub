@@ -34,7 +34,8 @@ export default function App() {
 
 You'll receive annual vacation days based on your employment terms, with the flexibility to carry over up to 12 days into the next year. Need to take time off before accruing enough days? No problem – we can work with you (up to 10 days with manager and HRBP approval).
 
-We also know life happens – so we've got you covered with paid sick leave, special days for weddings, parental support leave, and more. If you're ever unsure about what you're eligible for or have special circumstances, just reach out to your HRBP or Total Rewards team. We're here to help make it work for you.`,
+We also know life happens – so we've got you covered with paid sick leave, special days for weddings, parental support leave, and more. If you're ever unsure about what you're eligible for or have special circumstances, just reach out to your HRBP or Total Rewards team. We're here to help make it work for you.
+[Policy Link]`,
       color: '#6be084'
     },
 { 
@@ -49,7 +50,8 @@ We offer 10 paid working days of parental leave for non-birthing partners - 5 da
 
 Beyond time off, we also provide a special birth gift worth ₪520 – choose between a curated gift package or a gift card to pick what works best for your family.
 
-To request your parental leave, just notify your manager and contact your HRBP to record it in Hibob. They're here to help make this transition as smooth as possible.`,
+To request your parental leave, just notify your manager and contact your HRBP to record it in Hibob. They're here to help make this transition as smooth as possible.
+[Policy Link]`,
   color: '#d9d9d9'
 },
 { 
@@ -87,15 +89,22 @@ If you ever need help with your meal benefit account or have questions about you
       details: 'Rules and reimbursements for business travel. Economy flights, hotel reimbursement up to ₪400/night.',
       color: '#d9d9d9'
     },
-    { 
-      id: 6, 
-      type: 'policy',
-      category: 'IT',
-      title: 'IT Home Equipment Policy', 
-      description: 'How to report work-related expenses',
-      details: 'How to report and get reimbursed for work-related expenses. Submit within 30 days with receipts.',
-      color: '#6be084'
-    },
+{ 
+  id: 6, 
+  type: 'benefit',
+  category: 'IT', 
+  title: 'IT Home Equipment Policy', 
+  description: 'Everything you need to work from home',
+  details: `Working from home is great – but it's even better when you have the right tools to do it comfortably and effectively. That's why we provide home office equipment to help you set up a productive workspace.
+
+If you're a new team member working remotely or in a hybrid capacity, you're eligible to choose from five predefined equipment bundles that cover everything you need, from laptops and monitors to keyboards, headsets, and more.
+
+Requesting your equipment is simple – just send an email to our IT team with your preferred bundle option, delivery address, and contact number, and we'll get it to you.
+
+If anything needs repair or replacement due to normal wear and tear, we've got you covered at no cost. For any questions about the available bundles or the request process, our IT and HR teams are here to help.
+[Policy link]`,
+  color: '#6be084'
+},
     { 
       id: 7, 
       type: 'policy',
@@ -109,7 +118,7 @@ If you ever need help with your meal benefit account or have questions about you
   id: 8, 
   type: 'benefit',
   category: 'Perks', 
-  title: 'Wedding', 
+  title: 'Wedding Celebration', 
   description: 'Celebrate your special day',
   details: `Congratulations on your upcoming wedding! We're thrilled to celebrate this special milestone with you.
 
@@ -117,8 +126,24 @@ To help you make the most of your big day, we offer three (3) paid working days 
 
 In addition to your time off, we're also sending our best wishes with a wedding gift of ₪1500 added to your salary – our way of saying we're happy for you.
 
-To request your wedding leave, just notify your manager and contact your HRBP to record it in Hibob. They'll make sure everything is set up so you can focus on celebrating.`,
+To request your wedding leave, just notify your manager and contact your HRBP to record it in Hibob. They'll make sure everything is set up so you can focus on celebrating.
+[Policy Link]`,
   color: '#fee000'
+},
+    { 
+  id: 9, 
+  type: 'policy',
+  category: 'Perks', 
+  title: 'Employee Referral Program', 
+  description: 'Get rewarded for great referrals',
+  details: `Great people know great people. If you've got a talented friend or colleague who'd be perfect for Personetics, we want to hear about them – and we'll reward you for it!
+
+When you refer someone to our team and they get hired for a full-time position, you'll receive a referral bonus once they successfully complete their first three months of employment. There's no limit to how many people you can refer, so feel free to spread the word.
+
+The process is simple: visit the Personetics Careers page, find an open position that matches your referral, and submit their information through our referral link using your Personetics email. Just make sure to refer them before they apply directly to us or enter our recruitment process.
+
+Your referral bonus will be paid through payroll in the cycle following your referred employee's three-month completion date. For questions about the program or how to get started, reach out to our Talent Acquisition Team.`,
+  color: '#19bbee'
 },
   ];
 
